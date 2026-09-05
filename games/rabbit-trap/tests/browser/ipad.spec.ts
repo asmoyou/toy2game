@@ -1,6 +1,62 @@
 import { test, expect, webkit, devices } from "@playwright/test";
 import type {} from "./game.spec";
 import { FINISH, GROUND_COUNT } from "../../src/world";
+import { configureParticipants } from "./fixtures";
+
+for (const viewport of [
+  { width: 1180, height: 820 },
+  { width: 1024, height: 768 },
+  { width: 820, height: 1180 },
+  { width: 390, height: 844 },
+  { width: 320, height: 740 },
+]) {
+  test(`settings and restart controls fit ${viewport.width}x${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto("./");
+    await expect(page.getByRole("button", { name: "抽一张卡牌" })).toBeEnabled();
+    const toolbar = await page.locator(".topbar").evaluate((element) => {
+      const buttons = [...element.querySelectorAll<HTMLButtonElement>("button")];
+      const brand = element.querySelector(".brand")!.getBoundingClientRect();
+      return buttons.map((button) => {
+        const rect = button.getBoundingClientRect();
+        return rect.width >= 44 && rect.height >= 44 && rect.left >= brand.right && rect.right <= innerWidth;
+      });
+    });
+    expect(toolbar.every(Boolean)).toBe(true);
+    await page.getByRole("button", { name: "游戏设置", exact: true }).click();
+    await configureParticipants(page, 4, [false, true, false, true]);
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expect(page.locator(".role-control button[aria-pressed=true]")).toHaveText(["真人", "机器人", "真人", "机器人"]);
+    const layout = await dialog.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      const start = element.querySelector(".primary-button")!.getBoundingClientRect();
+      return {
+        fits: rect.left >= 0 && rect.right <= innerWidth && rect.top >= 0 && rect.bottom <= innerHeight,
+        startVisible: start.top >= rect.top && start.bottom <= rect.bottom,
+        overflow: element.scrollWidth > element.clientWidth,
+        controls: [...element.querySelectorAll<HTMLButtonElement>(".segmented button")].map((button) => {
+          const bounds = button.getBoundingClientRect();
+          return bounds.width >= 44 && bounds.height >= 44 && button.scrollWidth <= button.clientWidth;
+        }),
+      };
+    });
+    expect(layout.fits).toBe(true);
+    expect(layout.startVisible).toBe(true);
+    expect(layout.overflow).toBe(false);
+    expect(layout.controls.every(Boolean)).toBe(true);
+    await page.screenshot({ path: `artifacts/roster-touch-${viewport.width}.png`, fullPage: true });
+    await page.getByRole("button", { name: "按此设置开始新局" }).click();
+    await expect(page.getByRole("button", { name: "抽一张卡牌" })).toBeEnabled();
+    await page.getByRole("button", { name: "抽一张卡牌" }).click();
+    await page.getByRole("button", { name: "新的一局", exact: true }).click();
+    await expect(page.getByRole("dialog", { name: "重新开始这一局？" })).toBeVisible();
+    await page.screenshot({ path: `artifacts/restart-touch-${viewport.width}.png`, fullPage: true });
+    await page.getByRole("button", { name: "重新开局", exact: true }).click();
+    await expect(page.getByRole("button", { name: "抽一张卡牌" })).toBeEnabled();
+    expect(await page.evaluate(() => window.__rabbit.diagnostics().nonTransparentPixels)).toBeGreaterThan(500);
+  });
+}
 
 test("iPad WebKit renders the complete garden in both orientations with large touch controls", async () => {
   const browser = await webkit.launch();

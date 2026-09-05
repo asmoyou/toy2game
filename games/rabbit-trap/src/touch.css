@@ -2,38 +2,61 @@ body {
   overscroll-behavior: none;
 }
 .player-count-setting {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0 0 19px;
+}
+.segmented {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #d4dfce;
+  border-radius: 8px;
+  background: #edf2e8;
+}
+.segmented button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 19px;
-  font-size: 15px;
-}
-.player-count-setting select {
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
   min-height: 48px;
-  min-width: 144px;
-  border: 1px solid #c8d7bc;
   border-radius: 6px;
-  background: #f0f5e9;
-  color: #526a46;
-  font: inherit;
-  padding: 8px 12px;
+  padding: 6px 8px;
+  background: transparent;
+  color: #65775b;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.segmented button:hover {
+  background: #e0e9d8;
+}
+.segmented button[aria-pressed="true"] {
+  background: #fff;
+  color: #3f6552;
+  box-shadow: 0 1px 4px #344c4120;
 }
 .participant-options {
+  min-width: 0;
   border: 0;
   padding: 0;
   margin: 0;
 }
-.participant-options legend {
+.participant-options legend,
+.player-count-setting legend {
   font-size: 12px;
   color: #8a987d;
   margin-bottom: 7px;
 }
 .participant-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 29px minmax(0, 1fr) minmax(164px, 204px);
   align-items: center;
-  gap: 11px;
-  min-height: 59px;
+  gap: 8px;
+  min-height: 65px;
   border-top: 1px solid #e1e8d9;
 }
 .participant-row strong {
@@ -41,25 +64,31 @@ body {
   font-weight: 500;
 }
 .participant-rabbit {
-  width: 38px;
+  width: 29px;
   display: grid;
   place-items: center;
 }
-.participant-row label {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 9px;
-  min-height: 54px;
-  margin-left: auto;
-  cursor: pointer;
+.role-control button {
+  min-height: 44px;
+  gap: 4px;
+  padding: 6px 4px;
   font-size: 13px;
-  color: #83947b;
 }
-.participant-row input {
-  width: 23px;
-  height: 23px;
-  accent-color: #79985d;
+@media (max-width: 360px) {
+  .settings-dialog .dialog-header h2 {
+    font-size: 16px;
+  }
+  .participant-row {
+    grid-template-columns: minmax(0, 1fr) minmax(164px, 1.8fr);
+  }
+  .participant-row .participant-rabbit {
+    display: none;
+  }
+}
+@media (max-height: 800px) {
+  .settings-dialog .modal-illustration {
+    display: none;
+  }
 }
 .win-dialog {
   width: min(540px, calc(100vw - 32px));
@@ -179,6 +208,31 @@ body {
   flex: 1;
   min-width: 0;
   font-size: 14px;
+}
+.restart-description {
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0 0 24px;
+}
+.restart-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.change-roster-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  margin: 12px auto 0;
+  background: transparent;
+  color: #65775b;
+  font-size: 14px;
+}
+.change-roster-button:hover {
+  color: #3f6552;
+  text-decoration: underline;
 }
 .secondary-button {
   display: flex;
@@ -754,7 +808,7 @@ body {
     height: 44px;
   }
   .new-game-button {
-    width: 38px;
+    width: 44px;
     height: 44px;
     min-height: 44px;
     justify-content: center;
@@ -937,6 +991,15 @@ body {
     font-size: 19px;
   }
 }
+@media (max-width: 480px) {
+  .topbar .brand-wordmark {
+    display: none;
+  }
+  .topbar .brand-symbol {
+    width: 44px;
+    height: 44px;
+  }
+}
 @media (max-width: 370px) {
   .topbar {
     padding-inline: 12px;
@@ -946,9 +1009,6 @@ body {
   }
   .header-actions {
     gap: 0;
-  }
-  .header-actions > .icon-button {
-    width: 40px;
   }
   .brand {
     gap: 6px;

@@ -33,6 +33,7 @@ import {
   Rabbit,
   RotateCcw,
   RotateCw,
+  Settings2,
   Sparkles,
   Star,
   ShieldCheck,
@@ -84,7 +85,7 @@ type SavedGame = {
   players?: PlayerConfig[];
   state: EngineState<RabbitState>;
 };
-type ModalType = "new" | "rules" | "history" | "win" | null;
+type ModalType = "settings" | "restart" | "rules" | "history" | "win" | null;
 const SAVE_KEY = "little-rabbit-match-v1";
 recordVisit('rabbit-trap');
 const DEFAULT_PLAYERS: PlayerConfig[] = [
@@ -92,6 +93,39 @@ const DEFAULT_PLAYERS: PlayerConfig[] = [
   { bot: true },
   { bot: true },
 ];
+
+function getFullscreenApi() {
+  const root = document.documentElement as HTMLElement & {
+    webkitRequestFullscreen?: () => void | Promise<void>;
+  };
+  const doc = document as Document & {
+    webkitFullscreenEnabled?: boolean;
+    webkitFullscreenElement?: Element;
+    webkitExitFullscreen?: () => void | Promise<void>;
+  };
+  if (
+    doc.fullscreenEnabled &&
+    typeof root.requestFullscreen === "function" &&
+    typeof doc.exitFullscreen === "function"
+  ) {
+    return {
+      element: doc.fullscreenElement,
+      enter: () => root.requestFullscreen(),
+      exit: () => doc.exitFullscreen(),
+    };
+  }
+  if (
+    (doc.webkitFullscreenEnabled ?? doc.fullscreenEnabled) !== false &&
+    typeof root.webkitRequestFullscreen === "function" &&
+    typeof doc.webkitExitFullscreen === "function"
+  ) {
+    return {
+      element: doc.webkitFullscreenElement,
+      enter: () => root.webkitRequestFullscreen!(),
+      exit: () => doc.webkitExitFullscreen!(),
+    };
+  }
+}
 
 function readSaved(): SavedGame | undefined {
   try {
@@ -182,9 +216,13 @@ function Modal({
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    ref.current?.showModal();
+    const dialog = ref.current;
+    const previousFocus = document.activeElement;
+    dialog?.showModal();
     return () => {
-      ref.current?.close();
+      dialog?.close();
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected)
+        previousFocus.focus();
     };
   }, []);
   return (
@@ -251,7 +289,9 @@ function GameScreen({
   const [busy, setBusy] = useState(false);
   const [completedAction, setCompletedAction] = useState(-1);
   const [paused, setPaused] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
+  const [fullscreen, setFullscreen] = useState(
+    () => Boolean(getFullscreenApi()?.element),
+  );
   const [sound, updateSound] = useState(isSoundEnabled);
   const [rotating, setRotating] = useState(false);
   const [following, setFollowing] = useState(false);
@@ -263,6 +303,7 @@ function GameScreen({
   const [newPlayers, setNewPlayers] = useState<PlayerConfig[]>(
     players.map((player) => ({ ...player })),
   );
+  const [newPlayerCount, setNewPlayerCount] = useState(numPlayers);
   const [newWeather, setNewWeather] = useState(weatherEnabled);
   const [sceneError, setSceneError] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -284,6 +325,7 @@ function GameScreen({
     lightningComplete &&
     !busy &&
     !paused &&
+    pageVisible &&
     !modal &&
     !ctx.gameover;
   canStrike.current = canAct;
@@ -291,10 +333,18 @@ function GameScreen({
     G.stage === "select" && humanTurn && canAct ? movableTokens(G, player) : [];
   const mustRest =
     G.stage !== "rotate" && !movableTokens(G, player).length && !ctx.gameover;
-  const openNewMatch = () => {
+  const openSettings = () => {
     setNewPlayers(players.map((player) => ({ ...player })));
+    setNewPlayerCount(numPlayers);
     setNewWeather(G.weather.enabled);
-    setModal("new");
+    setModal("settings");
+  };
+  const restartMatch = () => onNew(players, G.weather.enabled);
+  const requestRestart = () => {
+    const hasProgress =
+      G.action.id > 0 || G.discoveries.length > 0 || G.weather.strikes > 0;
+    if (hasProgress && !ctx.gameover) setModal("restart");
+    else restartMatch();
   };
   const playerName = (id: number) =>
     humanCount === 1 && !players[id].bot ? "你" : NAMES[id];
@@ -397,13 +447,7 @@ function GameScreen({
 
   useEffect(() => {
     const update = () =>
-      setFullscreen(
-        Boolean(
-          document.fullscreenElement ||
-            (document as Document & { webkitFullscreenElement?: Element })
-              .webkitFullscreenElement,
-        ),
-      );
+      setFullscreen(Boolean(getFullscreenApi()?.element));
     update();
     document.addEventListener("fullscreenchange", update);
     document.addEventListener("webkitfullscreenchange", update);
@@ -578,17 +622,11 @@ function GameScreen({
     if (!sound) playSound("hop");
   };
   const toggleFullscreen = async () => {
-    const root = document.documentElement as HTMLElement & {
-      webkitRequestFullscreen?: () => void;
-    };
-    const doc = document as Document & { webkitExitFullscreen?: () => void };
+    const api = getFullscreenApi();
+    if (!api) return;
     try {
-      if (fullscreen) {
-        if (document.exitFullscreen) await document.exitFullscreen();
-        else doc.webkitExitFullscreen?.();
-      } else if (root.requestFullscreen) await root.requestFullscreen();
-      else if (root.webkitRequestFullscreen) root.webkitRequestFullscreen();
-      else setEffectNotice("此浏览器暂不支持全屏");
+      if (api.element) await api.exit();
+      else await api.enter();
     } catch {
       setEffectNotice("暂时无法切换全屏");
     }
@@ -662,24 +700,21 @@ function GameScreen({
         <div className="mode-indicator">
           <span className="live-dot" />
           <span>
-            {humanCount === 0
-              ? "电脑对战"
-              : humanCount === numPlayers
-                ? "同屏对局"
-                : "混合对局"}
+            {humanCount === numPlayers
+              ? `${numPlayers} 人对战`
+              : `${humanCount} 真人 · ${numPlayers - humanCount} 机器人`}
           </span>
-          <span className="mode-divider" />
-          <Users size={14} />
-          <span>{numPlayers} 位玩家</span>
         </div>
         <div className="header-actions">
-          <IconButton
-            label={fullscreen ? "退出全屏" : "进入全屏"}
-            active={fullscreen}
-            onClick={() => void toggleFullscreen()}
-          >
-            {fullscreen ? <Minimize size={21} /> : <Maximize size={21} />}
-          </IconButton>
+          {getFullscreenApi() && (
+            <IconButton
+              label={fullscreen ? "退出全屏" : "进入全屏"}
+              active={fullscreen}
+              onClick={() => void toggleFullscreen()}
+            >
+              {fullscreen ? <Minimize size={21} /> : <Maximize size={21} />}
+            </IconButton>
+          )}
           <IconButton
             label={sound ? "关闭音效" : "开启音效"}
             active={sound}
@@ -690,11 +725,15 @@ function GameScreen({
           <IconButton label="游戏规则" onClick={() => setModal("rules")}>
             <CircleHelp size={19} />
           </IconButton>
+          <IconButton label="游戏设置" onClick={openSettings}>
+            <Settings2 size={19} />
+          </IconButton>
           <span className="header-divider" />
           <button
             className="new-game-button"
             aria-label="新的一局"
-            onClick={openNewMatch}
+            title="新的一局"
+            onClick={requestRestart}
           >
             <RotateCcw size={15} />
             <span>新的一局</span>
@@ -1166,38 +1205,59 @@ function GameScreen({
         </footer>
       </main>
 
-      {modal === "new" && (
-        <Modal title="新的冒险，从这里出发" onClose={() => setModal(null)}>
+      {modal === "restart" && (
+        <Modal title="重新开始这一局？" onClose={() => setModal(null)}>
+          <p className="restart-description">当前进度将被清除，人数、阵容和天气设置保持不变。</p>
+          <div className="restart-actions">
+            <button className="secondary-button" onClick={() => setModal(null)}>
+              <Play size={18} />
+              继续这局
+            </button>
+            <button className="primary-button" onClick={restartMatch}>
+              <RotateCcw size={18} />
+              重新开局
+            </button>
+          </div>
+        </Modal>
+      )}
+
+      {modal === "settings" && (
+        <Modal
+          title="游戏设置"
+          onClose={() => setModal(null)}
+          className="settings-dialog"
+        >
           <div className="modal-illustration">
             <Rabbit size={44} strokeWidth={1.3} />
             <Flower2 size={24} strokeWidth={1.3} />
           </div>
-          <div className="player-count-setting">
-            <label htmlFor="player-count">玩家人数</label>
-            <select
-              id="player-count"
-              aria-label="玩家人数"
-              value={newPlayers.length}
-              onChange={(event) => {
-                const count = Number(event.target.value);
-                setNewPlayers((current) =>
-                  Array.from(
-                    { length: count },
-                    (_, i) => current[i] ?? { bot: true },
-                  ),
-                );
-              }}
-            >
+          <fieldset className="player-count-setting">
+            <legend>几个人一起玩？</legend>
+            <div className="segmented" role="group" aria-label="玩家人数">
               {[2, 3, 4].map((count) => (
-                <option key={count} value={count}>
-                  {count} 位玩家
-                </option>
+                <button
+                  key={count}
+                  type="button"
+                  aria-pressed={newPlayerCount === count}
+                  onClick={() => {
+                    setNewPlayerCount(count);
+                    setNewPlayers((current) =>
+                      Array.from(
+                        { length: Math.max(count, current.length) },
+                        (_, i) => current[i] ?? { bot: false },
+                      ),
+                    );
+                  }}
+                >
+                  <Users size={18} />
+                  {count} 人
+                </button>
               ))}
-            </select>
-          </div>
+            </div>
+          </fieldset>
           <fieldset className="participant-options">
-            <legend>冒险伙伴</legend>
-            {newPlayers.map((participant, id) => (
+            <legend>玩家阵容</legend>
+            {newPlayers.slice(0, newPlayerCount).map((participant, id) => (
               <div className="participant-row" key={id}>
                 <span
                   className="participant-rabbit"
@@ -1206,26 +1266,30 @@ function GameScreen({
                   <Rabbit size={29} />
                 </span>
                 <strong>{NAMES[id]}</strong>
-                <label>
-                  {participant.bot ? (
-                    <Bot size={20} />
-                  ) : (
-                    <UserRound size={20} />
-                  )}
-                  <span>{participant.bot ? "电脑" : "真人"}</span>
-                  <input
-                    type="checkbox"
-                    aria-label={`${NAMES[id]}电脑控制`}
-                    checked={participant.bot}
-                    onChange={(event) =>
-                      setNewPlayers((current) =>
-                        current.map((entry, index) =>
-                          index === id ? { bot: event.target.checked } : entry,
-                        ),
-                      )
-                    }
-                  />
-                </label>
+                <div
+                  className="segmented role-control"
+                  role="group"
+                  aria-label={`${NAMES[id]}类型`}
+                >
+                  {[false, true].map((bot) => (
+                    <button
+                      key={String(bot)}
+                      type="button"
+                      aria-label={`${NAMES[id]}设为${bot ? "机器人" : "真人"}`}
+                      aria-pressed={participant.bot === bot}
+                      onClick={() =>
+                        setNewPlayers((current) =>
+                          current.map((entry, index) =>
+                            index === id ? { bot } : entry,
+                          ),
+                        )
+                      }
+                    >
+                      {bot ? <Bot size={18} /> : <UserRound size={18} />}
+                      {bot ? "机器人" : "真人"}
+                    </button>
+                  ))}
+                </div>
               </div>
             ))}
           </fieldset>
@@ -1242,10 +1306,10 @@ function GameScreen({
           <p className="new-game-note">开始新的一局会替换当前进度。</p>
           <button
             className="primary-button"
-            onClick={() => onNew(newPlayers, newWeather)}
+            onClick={() => onNew(newPlayers.slice(0, newPlayerCount), newWeather)}
           >
             <Flag size={17} />
-            出发，去胡萝卜山！
+            按此设置开始新局
             <ArrowRight size={17} />
           </button>
         </Modal>
@@ -1461,12 +1525,17 @@ function GameScreen({
               <Eye size={18} />
               看看棋盘
             </button>
-            <button className="primary-button" onClick={openNewMatch}>
+            <button className="primary-button" onClick={restartMatch}>
               <RotateCcw size={17} />
               再来一场冒险
               <ArrowRight size={17} />
             </button>
           </div>
+          <button className="change-roster-button" onClick={openSettings}>
+            <Settings2 size={18} />
+            换个阵容
+            <ChevronRight size={18} />
+          </button>
         </Modal>
       )}
       <div className="sr-only">

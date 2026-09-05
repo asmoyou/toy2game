@@ -8,11 +8,13 @@ export async function configureParticipants(
   bots: boolean[] = [],
 ) {
   await page
-    .getByLabel("玩家人数", { exact: true })
-    .selectOption(String(count));
-  const controls = page.getByRole("checkbox", { name: /电脑控制/ });
+    .getByRole("group", { name: "玩家人数", exact: true })
+    .getByRole("button", { name: `${count} 人`, exact: true })
+    .click();
   for (let i = 0; i < count; i++)
-    await controls.nth(i).setChecked(bots[i] ?? false);
+    await page.locator(".participant-row").nth(i).getByRole("button", {
+      name: bots[i] ? /设为机器人$/ : /设为真人$/,
+    }).click();
 }
 
 export async function classicFixture(page: Page) {

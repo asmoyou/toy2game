@@ -17,9 +17,9 @@ async function startFixture(
   carrot = false,
 ) {
   await page.goto("./");
-  await page.getByRole("button", { name: "新的一局", exact: true }).tap();
+  await page.getByRole("button", { name: "游戏设置", exact: true }).tap();
   await configureParticipants(page, 2);
-  await page.getByRole("button", { name: "出发，去胡萝卜山！" }).tap();
+  await page.getByRole("button", { name: "按此设置开始新局" }).tap();
   await expect(page.getByRole("button", { name: "抽一张卡牌" })).toBeEnabled();
   await classicFixture(page);
   await page.evaluate(

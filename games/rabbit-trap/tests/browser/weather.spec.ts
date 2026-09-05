@@ -12,10 +12,10 @@ test.use({
 
 async function setup(page: Page, strikeOnRabbit: boolean, allStunned = false) {
   await page.goto("./");
-  await page.getByRole("button", { name: "新的一局", exact: true }).tap();
+  await page.getByRole("button", { name: "游戏设置", exact: true }).tap();
   await configureParticipants(page, 2);
   await page.getByRole("checkbox", { name: "雷云天气", exact: true }).check();
-  await page.getByRole("button", { name: "出发，去胡萝卜山！" }).tap();
+  await page.getByRole("button", { name: "按此设置开始新局" }).tap();
   await expect(page.getByRole("button", { name: "抽一张卡牌" })).toBeEnabled();
   await page.evaluate(
     ({ point, strikeOnRabbit, allStunned }) => {

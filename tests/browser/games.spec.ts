@@ -31,6 +31,22 @@ for (const game of [
     await page.getByRole('button', { name: game.control, exact: true }).click();
     await expect(page.locator('dialog[open]')).toBeVisible();
     await page.locator('dialog[open]').getByRole('button', { name: game.id === 'penguin-ice' ? '关闭设置' : '关闭', exact: true }).click();
+    if (game.id === 'rabbit-trap') {
+      const card = page.locator('.playing-card');
+      const cardLabel = await card.getAttribute('aria-label');
+      await page.getByRole('button', { name: '游戏设置', exact: true }).click();
+      await expect(page.getByRole('dialog', { name: '游戏设置', exact: true })).toBeVisible();
+      await page.getByRole('group', { name: '玩家人数', exact: true }).getByRole('button', { name: '4 人', exact: true }).click();
+      await page.getByRole('button', { name: '关闭', exact: true }).click();
+      await expect(card).toHaveAttribute('aria-label', cardLabel!);
+      await page.getByRole('button', { name: '新的一局', exact: true }).click();
+      await expect(page.getByRole('dialog', { name: '重新开始这一局？' })).toBeVisible();
+      await page.getByRole('button', { name: '继续这局', exact: true }).click();
+      await expect(card).toHaveAttribute('aria-label', cardLabel!);
+      await page.getByRole('button', { name: '新的一局', exact: true }).click();
+      await page.getByRole('button', { name: '重新开局', exact: true }).click();
+      await expect(page.getByRole('button', { name: '抽一张卡牌', exact: true })).toBeEnabled();
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.screenshot({ path: `artifacts/${game.id}-${info.project.name}.png`, fullPage: true });
     await page.reload();

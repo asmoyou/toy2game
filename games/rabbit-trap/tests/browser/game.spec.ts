@@ -24,14 +24,14 @@ test.beforeEach(async ({ page }) => {
 });
 
 async function newMatch(page: Page, name: string, classic = true) {
-  await page.getByRole("button", { name: "新的一局", exact: true }).click();
+  await page.getByRole("button", { name: "游戏设置", exact: true }).click();
   const count = name === "双人同行" ? 2 : name === "四人派对" ? 4 : 3;
   await configureParticipants(
     page,
     count,
     name === "单人冒险" ? [false, true, true] : [],
   );
-  await page.getByRole("button", { name: "出发，去胡萝卜山！" }).click();
+  await page.getByRole("button", { name: "按此设置开始新局" }).click();
   await expect(page.getByRole("button", { name: "抽一张卡牌" })).toBeEnabled();
   if (classic) await classicFixture(page);
 }
@@ -235,9 +235,17 @@ test("shows a victory and restarts in four-player mode on mobile", async ({
   await expect(page.getByRole("dialog")).toBeVisible();
   const restored = await page.evaluate(() => window.__rabbit.diagnostics());
   expect(restored.tokens[0].position).toEqual(restored.throne);
+  const finishedMatch = await page.evaluate(() => localStorage.getItem("little-rabbit-match-v1")!);
   await page.getByRole("button", { name: "再来一场冒险" }).click();
+  await expect(page.getByRole("button", { name: "抽一张卡牌" })).toBeEnabled();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  expect(await page.evaluate(() => window.__rabbit.client.getState()!.ctx.numPlayers)).toBe(2);
+  await page.evaluate((saved) => localStorage.setItem("little-rabbit-match-v1", saved), finishedMatch);
+  await page.reload();
+  await page.getByRole("button", { name: "换个阵容", exact: true }).click();
+  await expect(page.getByRole("dialog", { name: "游戏设置", exact: true })).toBeVisible();
   await configureParticipants(page, 4);
-  await page.getByRole("button", { name: "出发，去胡萝卜山！" }).click();
+  await page.getByRole("button", { name: "按此设置开始新局" }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.getByRole("button", { name: "抽一张卡牌" })).toBeEnabled();
   await page.waitForTimeout(500);
