@@ -58,6 +58,8 @@ npm run preview
 
 **[Cloudflare Workers 配置与 GitHub 自动部署](docs/cloudflare.md)**
 
+SEO 和智能体资料由游戏目录自动生成，包括每页元信息、结构化数据、首页预渲染、`robots.txt`、`llms.txt` 与游戏文字版。正式部署前配置 `SITE_ORIGIN` 或 `packages/catalog/site.json` 的 `origin`，生成 canonical、分享图片绝对地址和站点地图。详见 **[SEO 与智能体发现](docs/seo.md)**。
+
 ## 持续添加游戏
 
 新增 `games/<english-slug>/`，把游戏信息登记到 `packages/catalog/games.json`，放入实际游戏封面。开发和生产构建会自动读取登记表。

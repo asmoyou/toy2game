@@ -17,6 +17,7 @@
 | 部署命令 / Deploy command | `npx wrangler deploy` |
 | 非生产分支部署命令（如果启用） | `npx wrangler versions upload` |
 | 构建环境变量 | `NODE_VERSION` = `22.21.1` |
+| SEO 构建环境变量 | `SITE_ORIGIN` = 最终公开访问的 HTTPS 域名（不带路径） |
 
 Workers 不需要单独填写输出目录，根目录 `wrangler.jsonc` 已将静态资源目录设为 `./dist`。依赖由 Cloudflare 自动安装，根目录的 `package-lock.json` 必须一起提交。如果界面允许覆盖安装命令，可填写 `npm ci`。
 
@@ -25,6 +26,8 @@ Workers 不需要单独填写输出目录，根目录 `wrangler.jsonc` 已将静
 Worker 名称要与 `wrangler.jsonc` 的 `name` 一致。如果在 Cloudflare 里选择了别的名称，请同步修改该字段。
 
 完成首次部署后，使用 Cloudflare 提供的 `workers.dev` 地址访问。以后向生产分支推送提交，会自动构建并部署大厅和所有登记的游戏。不需要为每个游戏单独创建 Worker。
+
+得到正式访问地址后，将其设为构建环境变量 `SITE_ORIGIN`，或写入 `packages/catalog/site.json` 的 `origin`，然后重新构建部署，以生成 canonical、分享图片绝对地址和 `sitemap.xml`。绑定自定义域名后同步更新此值。该变量属于构建环境，不是 Worker 运行时变量；详见 [SEO 与智能体发现](seo.md)。
 
 ## 本地检查构建及 Cloudflare 路由
 

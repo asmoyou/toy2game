@@ -51,13 +51,22 @@ games/marble-run/
   "duration": "自由时长",
   "cover": "images/marble-run.png",
   "color": "ice",
-  "addedAt": "2026-09-05"
+  "addedAt": "2026-09-05",
+  "seo": {
+    "title": "弹珠轨道 | 免费在线轨道搭建游戏 | Toy2Game",
+    "description": "免费在线搭建弹珠轨道，测试自己的路线，观察弹珠的运动。",
+    "recommendation": "适合喜欢自由搭建和观察物理运动的玩家。",
+    "rules": ["搭建轨道后释放弹珠，观察它能否顺利抵达终点。"],
+    "controls": ["按游戏实际操作方式填写。"]
+  }
 }
 ```
 
 `id` 必须与目录名完全一致；分类现有 `party`、`strategy`，封面底色现有 `ice`、`garden`。新增分类时同步更新 `packages/catalog/index.ts` 和 `scripts/catalog.mjs` 的分类校验。
 
 把实际游戏截图放到 `apps/web/public/images/marble-run.png`，建议 1200 × 800，主体居中以适应不同屏幕裁切。不要将未经授权的实体产品参考图作为发布封面。`scripts/capture-covers.mjs` 提供现有两个游戏的截图流程，新游戏可按其场景选择器扩展该脚本。
+
+`seo` 示例仅展示字段格式，必须按实际功能填写。在游戏的 `vite.config.ts` 引入 `import { seoPlugin } from '../../scripts/seo.mjs'`，将 `seoPlugin({ gameId: 'marble-run' })` 加入 `plugins`。移除 HTML 中手写的 title 和 description，由插件统一生成；在游戏挂载容器内放置 `<!-- game-summary -->`，供插件生成加载前可读的简介。游戏初始化时接管该容器，保留现有全屏游玩体验。根构建会自动生成该游戏的结构化数据、站点地图条目、智能体索引和文字版资料。
 
 ## 3. 接上返回大厅和游玩记录
 

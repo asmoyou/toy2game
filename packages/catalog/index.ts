@@ -19,6 +19,13 @@ export type GameDefinition = {
   cover: string;
   color: 'ice' | 'garden';
   addedAt: string;
+  seo: {
+    title: string;
+    description: string;
+    recommendation: string;
+    rules: string[];
+    controls: string[];
+  };
 };
 
 export const games = entries as GameDefinition[];

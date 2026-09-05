@@ -96,6 +96,10 @@ h1 { margin: 12px 0; font-size: 42px; font-weight: 750; line-height: 1.35; displ
 .coming-next div > span { display: block; margin-top: 5px; font-size: 11px; color: #99a098; }
 .next-label { margin-left: auto; display: flex; align-items: center; gap: 13px; font-size: 9px; font-weight: 500; color: #93a18f; }
 .site-footer { border-top: 1px solid #e0e5df; background: #eff2ee; }
+.agent-welcome { border-top: 1px solid #e0e5df; padding: 26px 0 32px; }
+.agent-welcome h2 { margin: 0 0 10px; font-size: 17px; line-height: 1.5; font-weight: 650; }
+.agent-welcome p { max-width: 840px; margin: 8px 0; color: #67736b; font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+.agent-welcome a { display: inline-flex; align-items: center; gap: 5px; min-height: 40px; font-size: 12px; color: #3e6e52; text-decoration: underline; text-underline-offset: 4px; }
 .footer-inner { max-width: 1320px; margin: auto; display: flex; align-items: center; gap: 24px; min-height: 82px; padding: 20px 36px; }
 .footer-brand { font-size: 19px; font-weight: 800; color: #66745f; }
 .footer-inner > span { font-size: 10px; color: #8c9687; }

@@ -6,6 +6,7 @@
   "exports": {
     ".": "./index.ts",
     "./browser": "./browser.ts",
-    "./games.json": "./games.json"
+    "./games.json": "./games.json",
+    "./site.json": "./site.json"
   }
 }
