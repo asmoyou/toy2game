@@ -1,0 +1,31 @@
+{
+  "name": "@toy2game/penguin-ice",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "test:browser": "node tests/browser-check.mjs",
+    "test:bots": "node tests/bots-browser.mjs",
+    "test:balance": "node --experimental-strip-types tests/balance-check.ts",
+    "test:experience": "node tests/experience-browser.mjs"
+  },
+  "dependencies": {
+    "@toy2game/catalog": "*",
+    "cannon-es": "^0.20.0",
+    "canvas-confetti": "^1.9.4",
+    "lucide": "^0.577.0",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/three": "^0.183.1",
+    "pngjs": "^7.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}

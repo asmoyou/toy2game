@@ -1,0 +1,28 @@
+[
+  {
+    "id": "penguin-ice",
+    "title": "企鹅敲敲敲",
+    "englishTitle": "ICE ICE PENGUIN",
+    "description": "一人一锤，敲开薄冰。谁会让摇摇晃晃的小企鹅先掉进水里？",
+    "category": "party",
+    "tags": ["物理模拟", "同屏对战", "电脑对手"],
+    "players": "2–4 人",
+    "duration": "3–10 分钟",
+    "cover": "images/penguin-ice.png",
+    "color": "ice",
+    "addedAt": "2026-09-05"
+  },
+  {
+    "id": "rabbit-trap",
+    "title": "小兔闯关",
+    "englishTitle": "LITTLE RABBIT",
+    "description": "向胡萝卜山顶出发！翻牌、跳跃、小心机关，每一步都有新惊喜。",
+    "category": "strategy",
+    "tags": ["棋盘冒险", "同屏对战", "电脑对手"],
+    "players": "2–4 人",
+    "duration": "10–20 分钟",
+    "cover": "images/rabbit-trap.png",
+    "color": "garden",
+    "addedAt": "2026-09-05"
+  }
+]
