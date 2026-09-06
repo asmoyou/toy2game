@@ -4,16 +4,34 @@ import { PNG } from 'pngjs';
 import { registry, root } from './catalog.mjs';
 
 const url = process.env.SITE_URL ?? 'http://localhost:5173/';
+const sceneHosts = { 'penguin-ice': '#scene', 'rabbit-trap': '.scene-host', 'balance-astronaut': '#space-scene' };
+const games = process.env.GAME_ID ? registry.filter(game => game.id === process.env.GAME_ID) : registry;
+if (!games.length) throw new Error(`Unknown game: ${process.env.GAME_ID}`);
 const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL ?? 'chrome' });
 try {
-  for (const game of registry) {
+  for (const game of games) {
     const page = await browser.newPage({ viewport: { width: 1200, height: 900 }, deviceScaleFactor: 1 });
     await page.goto(new URL(`games/${game.id}/`, url).href);
-    const selector = game.id === 'penguin-ice' ? '#scene canvas' : '.scene-host canvas';
+    const host = sceneHosts[game.id];
+    if (!host) throw new Error(`Missing cover scene selector: ${game.id}`);
+    const selector = `${host} canvas`;
     await page.locator(selector).waitFor();
     await page.waitForFunction(() => !document.querySelector('#loading, .scene-loading'));
+    if (game.id === 'balance-astronaut') {
+      // Advance legal, balanced moves to show an actual mid-game station in its cover.
+      await page.evaluate(() => {
+        const game = window.__balance?.game;
+        if (!game) return;
+        for (let move = 0; move < 12 && game.phase !== 'finished'; move++) {
+          const actor = game.isBot ? 'bot' : 'human';
+          game.place(game.chooseBotSlot(), actor);
+          for (let step = 0; step < 1200 && game.phase === 'settling'; step++) game.update(1 / 60);
+        }
+        game.paused = true;
+      });
+    }
     // Resize the existing game scene for a cover; no separate illustration or scene implementation.
-    await page.addStyleTag({ content: `${game.id === 'penguin-ice' ? '#scene' : '.scene-host'} { position: fixed !important; inset: 0 !important; width: 1200px !important; height: 800px !important; z-index: 9999 !important; } body * { visibility: hidden !important; } ${selector} { visibility: visible !important; }` });
+    await page.addStyleTag({ content: `${host} { position: fixed !important; inset: 0 !important; width: 1200px !important; height: 800px !important; z-index: 9999 !important; } body * { visibility: hidden !important; } ${selector} { visibility: visible !important; }` });
     await page.waitForTimeout(2000);
     await page.locator(selector).screenshot({ path: `${root}apps/web/public/${game.cover}` });
     await page.close();

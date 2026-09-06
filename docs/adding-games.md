@@ -33,7 +33,7 @@ games/marble-run/
 }
 ```
 
-根据游戏补充 Vite、TypeScript、框架及引擎依赖。统一在仓库根目录执行 `npm install` 更新根锁文件，不添加游戏专属锁文件。游戏可通过 `npm run dev --workspace games/marble-run` 单独启动。
+根据游戏补充 Vite、TypeScript、框架及引擎依赖。统一在仓库根目录执行 `npm install` 更新根锁文件，不添加游戏专属锁文件。统一开发脚本以 Vite 中间件挂载各游戏，HTTP 和热更新共用 5173，不为每个游戏开端口。保留独立游戏的 `dev` 脚本以支持独立工作区，但日常开发和浏览器测试使用根服务。
 
 ## 2. 登记游戏
 
@@ -64,7 +64,7 @@ games/marble-run/
 
 `id` 必须与目录名完全一致；分类现有 `party`、`strategy`，封面底色现有 `ice`、`garden`。新增分类时同步更新 `packages/catalog/index.ts` 和 `scripts/catalog.mjs` 的分类校验。
 
-把实际游戏截图放到 `apps/web/public/images/marble-run.png`，建议 1200 × 800，主体居中以适应不同屏幕裁切。不要将未经授权的实体产品参考图作为发布封面。`scripts/capture-covers.mjs` 提供现有两个游戏的截图流程，新游戏可按其场景选择器扩展该脚本。
+把实际游戏截图放到 `apps/web/public/images/marble-run.png`，建议 1200 × 800，主体居中以适应不同屏幕裁切。不要将未经授权的实体产品参考图作为发布封面。在 `scripts/capture-covers.mjs` 的 `sceneHosts` 中加入新游戏的场景选择器，可用 `GAME_ID=marble-run npm run covers` 单独截取。
 
 `seo` 示例仅展示字段格式，必须按实际功能填写。在游戏的 `vite.config.ts` 引入 `import { seoPlugin } from '../../scripts/seo.mjs'`，将 `seoPlugin({ gameId: 'marble-run' })` 加入 `plugins`。移除 HTML 中手写的 title 和 description，由插件统一生成；在游戏挂载容器内放置 `<!-- game-summary -->`，供插件生成加载前可读的简介。游戏初始化时接管该容器，保留现有全屏游玩体验。根构建会自动生成该游戏的结构化数据、站点地图条目、智能体索引和文字版资料。
 
@@ -84,7 +84,7 @@ const home = libraryUrl(import.meta.env.BASE_URL);
 ## 4. 保持资源路径可部署
 
 - 游戏链接统一为 `/games/<id>/`，由登记表和构建脚本生成。
-- 在 HTML 中引用公共资源时使用 `%BASE_URL%favicon.png`。
+- 在 HTML 中引用公共资源时使用 `./favicon.png` 等相对路径，交由 Vite 按 base 改写；避免 `%BASE_URL%` 与开发时的自动前缀重复。
 - 在 JS 中引用 `public/` 资源时使用 `import.meta.env.BASE_URL`；源码资源优先使用 `import` 或 `new URL('./asset.png', import.meta.url)`。
 - CSS 的本地资源 URL 交给 Vite 处理；不要在运行时硬编码 `/assets/`、`/fonts/` 等站点根路径。
 - 游戏的存储键使用自身 ID 和版本，不读写其他游戏的对局数据。

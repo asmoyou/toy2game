@@ -2,8 +2,9 @@ import { test, expect } from '@playwright/test';
 import { PNG } from 'pngjs';
 
 for (const game of [
-  { id: 'penguin-ice', title: '企鹅敲敲敲', canvas: '#scene canvas', control: '游戏设置' },
-  { id: 'rabbit-trap', title: '小兔闯关', canvas: '.scene-host canvas', control: '游戏规则' },
+  { id: 'penguin-ice', title: '企鹅敲敲敲', canvas: '#scene canvas', control: '游戏设置', action: '向右旋转视角', close: '关闭设置', debug: '__iceGame' },
+  { id: 'rabbit-trap', title: '小兔闯关', canvas: '.scene-host canvas', control: '游戏规则', action: '抽一张卡牌', close: '关闭', debug: '__rabbit' },
+  { id: 'balance-astronaut', title: '平衡太空人', canvas: '#space-scene canvas', control: '游戏规则', action: '向右旋转视角', close: '关闭规则', debug: '__balance' },
 ]) {
   test(`${game.id} loads its nested assets, renders a moving scene and returns to the library`, async ({ page }, info) => {
     const errors: string[] = [];
@@ -15,6 +16,7 @@ for (const game of [
     await expect(page).toHaveURL(new RegExp(`/games/${game.id}/$`));
     await expect(page.locator(game.canvas)).toBeVisible();
     await expect(page.locator('#loading, .scene-loading')).toHaveCount(0);
+    expect(await page.evaluate(key => key in window, game.debug)).toBe(false);
     await page.waitForTimeout(1200);
     const canvas = PNG.sync.read(await page.locator(game.canvas).screenshot());
     const colors = new Set();
@@ -24,13 +26,12 @@ for (const game of [
     }
     expect(colors.size).toBeGreaterThan(80);
     const before = await page.locator(game.canvas).screenshot();
-    if (game.id === 'penguin-ice') await page.getByRole('button', { name: '向右旋转视角' }).click();
-    else await page.getByRole('button', { name: '抽一张卡牌' }).click();
+    await page.getByRole('button', { name: game.action }).click();
     await page.waitForTimeout(700);
     expect(Buffer.compare(before, await page.locator(game.canvas).screenshot())).not.toBe(0);
     await page.getByRole('button', { name: game.control, exact: true }).click();
     await expect(page.locator('dialog[open]')).toBeVisible();
-    await page.locator('dialog[open]').getByRole('button', { name: game.id === 'penguin-ice' ? '关闭设置' : '关闭', exact: true }).click();
+    await page.locator('dialog[open]').getByRole('button', { name: game.close, exact: true }).click();
     if (game.id === 'rabbit-trap') {
       const card = page.locator('.playing-card');
       const cardLabel = await card.getAttribute('aria-label');
@@ -46,6 +47,13 @@ for (const game of [
       await page.getByRole('button', { name: '新的一局', exact: true }).click();
       await page.getByRole('button', { name: '重新开局', exact: true }).click();
       await expect(page.getByRole('button', { name: '抽一张卡牌', exact: true })).toBeEnabled();
+    }
+    if (game.id === 'balance-astronaut') {
+      await expect(page.locator('#crew-count')).toHaveText('00');
+      await page.getByRole('button', { name: '停靠位列表', exact: true }).click();
+      await page.getByRole('button', { name: '1 号停靠位', exact: true }).click();
+      await expect(page.locator('#crew-count')).toHaveText('01');
+      await expect(page.getByRole('button', { name: '放置太空人', exact: true })).toHaveCount(0);
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.screenshot({ path: `artifacts/${game.id}-${info.project.name}.png`, fullPage: true });

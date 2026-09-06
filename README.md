@@ -2,7 +2,7 @@
 
 把实物玩具变成免费在线游戏，保留熟悉的乐趣，也加入更丰富的玩法。游戏合集会持续更新。
 
-目前包含 **企鹅敲敲敲** 和 **小兔闯关**，支持 2–4 人同屏游玩及电脑对手。大厅支持搜索、分类、收藏、最近玩过和随机游戏。
+目前包含 **企鹅敲敲敲**、**小兔闯关** 和 **平衡太空人**，支持 2–4 人同屏游玩及电脑对手。大厅支持搜索、分类、收藏、最近玩过和随机游戏。
 
 ## 本地运行
 
@@ -13,7 +13,7 @@ npm ci
 npm run dev
 ```
 
-在**仓库根目录**执行。默认打开 `http://localhost:5173/`；端口被占用时自动选择空闲端口，以终端为准。同一 Wi-Fi 下的手机和平板可以访问终端打印的 Network 地址。
+在**仓库根目录**执行。统一入口为 `http://localhost:5173/`，大厅、各游戏及热更新共用这一个监听端口。重复启动会复用同仓库已有服务；5173 被其他服务占用时会退出并提示，不自动增加端口。同一 Wi-Fi 下的手机和平板可以访问终端打印的 Network 地址。
 
 ## 架构
 
@@ -25,6 +25,7 @@ apps/
 games/
   penguin-ice/            # 企鹅敲敲敲，Three.js + cannon-es
   rabbit-trap/            # 小兔闯关，React + Three.js + boardgame.io
+  balance-astronaut/      # 平衡太空人，Three.js + cannon-es
 packages/
   catalog/
     games.json           # 唯一的游戏登记表，大厅和构建脚本共同读取
@@ -44,6 +45,7 @@ package-lock.json        # 全仓库共用一份锁文件
 | 游戏大厅 | `/` |
 | 企鹅敲敲敲 | `/games/penguin-ice/` |
 | 小兔闯关 | `/games/rabbit-trap/` |
+| 平衡太空人 | `/games/balance-astronaut/` |
 
 浏览器记录保存在本机，不涉及账号或后端；原游戏的偏好和对局存储键保持原样。当前多人模式是同屏游戏。
 
@@ -53,6 +55,8 @@ package-lock.json        # 全仓库共用一份锁文件
 npm run build
 npm run preview
 ```
+
+开发与生产预览均使用 5173，切换前先停止当前服务。验证结束后关闭临时预览，再按需恢复开发服务。
 
 统一产物位于根目录 `dist/`，包含大厅、游戏页面、字体、封面和 404 页面。可直接部署到 **Cloudflare Workers Static Assets**。
 
@@ -74,7 +78,9 @@ npm run build
 npm run test:e2e
 ```
 
-`npm test` 运行目录校验及两个游戏已有的规则和物理测试。`test:e2e` 自动启动生产预览，检查桌面和手机上的搜索、筛选、收藏、最近玩过、游戏跳转、嵌套资源、真实画布像素、游戏操作和 404。
+`npm test` 运行目录校验及各游戏的规则和物理测试。运行 `test:e2e` 前先停止开发服务；它自动在 5173 启动生产预览，检查桌面和手机上的搜索、筛选、收藏、最近玩过、游戏跳转、嵌套资源、真实画布像素、游戏操作和 404。
+
+开发服务运行时可执行 `node tests/browser/dev-server.mjs`，验证重复启动复用、三款游戏的资源加载及各自热更新连接共用一个端口。
 
 浏览器默认使用本机 Google Chrome。没有 Chrome 时执行 `npx playwright install chromium`，然后用 `PLAYWRIGHT_CHANNEL=chromium npm run test:e2e`。截图输出在 `artifacts/`，失败跟踪在 `test-results/`。
 

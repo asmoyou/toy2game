@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import games from '../../packages/catalog/games.json' with { type: 'json' };
 
 test('library renders real covers, searches, filters, sorts and handles no results', async ({ page }, info) => {
   const errors: string[] = [];
@@ -6,7 +7,7 @@ test('library renders real covers, searches, filters, sorts and handles no resul
   const requests: string[] = [];
   page.on('request', request => requests.push(request.url()));
   await page.goto('./');
-  await expect(page.locator('.game-card')).toHaveCount(2);
+  await expect(page.locator('.game-card')).toHaveCount(games.length);
   for (const image of await page.locator('.game-image img').all()) {
     await expect(image).toBeVisible();
     expect(await image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 500)).toBe(true);
@@ -25,7 +26,7 @@ test('library renders real covers, searches, filters, sorts and handles no resul
   await page.getByRole('searchbox').fill('不存在的游戏');
   await expect(page.getByRole('heading', { name: '没有找到这个游戏' })).toBeVisible();
   await page.getByRole('button', { name: '清除筛选' }).click();
-  await expect(page.locator('.game-card')).toHaveCount(2);
+  await expect(page.locator('.game-card')).toHaveCount(games.length);
   await page.getByRole('combobox', { name: '游戏排序' }).selectOption('title');
   await expect(page).toHaveURL(/sort=title/);
   expect(errors).toEqual([]);
@@ -51,12 +52,12 @@ test('favorites persist and remain independent from recently played games', asyn
 test('invalid local storage does not prevent opening the library', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('toy2game-library-v1', '{invalid'));
   await page.goto('./');
-  await expect(page.locator('.game-card')).toHaveCount(2);
+  await expect(page.locator('.game-card')).toHaveCount(games.length);
 });
 
 test('random play opens a registered game', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('button', { name: '随便玩一个' }).click();
-  await expect(page).toHaveURL(/\/games\/(penguin-ice|rabbit-trap)\/$/);
+  await expect(page).toHaveURL(new RegExp(`/games/(${games.map(game => game.id).join('|')})/$`));
   await expect(page.getByRole('link', { name: '返回游戏大厅' })).toBeVisible();
 });

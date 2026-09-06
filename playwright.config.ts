@@ -6,7 +6,7 @@ export default defineConfig({
   expect: { timeout: 12000 },
   workers: 1,
   use: {
-    baseURL: process.env.SITE_URL ?? 'http://localhost:4173/',
+    baseURL: process.env.SITE_URL ?? 'http://localhost:5173/',
     channel: process.env.PLAYWRIGHT_CHANNEL ?? 'chrome',
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
@@ -17,7 +17,7 @@ export default defineConfig({
   ],
   webServer: process.env.SITE_URL ? undefined : {
     command: 'npm run preview',
-    url: 'http://localhost:4173/',
-    reuseExistingServer: !process.env.CI,
+    url: 'http://localhost:5173/',
+    reuseExistingServer: false,
   },
 });
