@@ -14,7 +14,7 @@ README 与 GitHub 分享图使用实际游戏截图，沿用大厅的绿色点�
 
 图片中的人数与功能对应当前四款游戏。跨设备画面由 Chrome 按相应视口渲染，展示外框为排版元素，不代表真实设备拍摄或硬件验证。
 
-总览与分享封面的场景来自 `apps/web/public/images/` 下的四张大厅封面。设备预览来自本地站点的大厅、小兔闯关与移车出库页面。英文字体复用仓库内的 DM Sans，其 [许可证](../apps/web/public/fonts/OFL.txt) 保持原样；中文使用本机系统字体，没有新增字体文件。
+总览与分享封面的场景来自 `apps/web/public/images/` 下的四张大厅封面。设备预览来自本地站点的大厅、小兔闯关与移车出库页面。英文使用 DM Sans，中文使用 Noto Sans SC，两者均遵循 SIL Open Font License：[DM Sans 许可](../apps/web/public/fonts/OFL.txt)、[Noto Sans SC 许可](../apps/web/public/fonts/noto-sans-sc-OFL.txt)。截图脚本将本地字体嵌入排版页面，不依赖远程字体或指定的系统中文字库。
 
 ## 重新制作
 

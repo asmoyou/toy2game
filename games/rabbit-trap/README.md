@@ -1,6 +1,6 @@
 # 小兔闯关 · Little Rabbit
 
-根据目录中的参考图制作的 Three.js 三维网页棋盘游戏。山丘、胡萝卜、兔子、木桥和植物均为程序化三维模型，不依赖远程模型服务。
+Three.js 三维网页棋盘游戏。山丘、胡萝卜、兔子、木桥和植物均为程序化三维模型，不依赖远程模型服务。
 
 面向 3 至 12 岁儿童，优先适配 iPad 网页横屏游玩，同时支持竖屏。主要操作采用大触控目标，可点卡牌翻牌、点编号兔子前进。默认手动视角，支持旋转、双指缩放和平移；跟随可选，手动拖动会退出跟随。顶部仅在浏览器支持且允许页面全屏时显示全屏按钮，兼容标准与旧版 Safari 接口；进入、退出全屏不会重置对局或视角。
 
@@ -83,4 +83,4 @@ npm run build
 
 ## 资源
 
-DM Sans 字体遵循 SIL Open Font License，许可证位于 `public/fonts/OFL.txt`。参考图片仅用于设计，不作为生产静态资源发布。
+DM Sans 与 Noto Sans SC 字体均在本地加载，遵循 SIL Open Font License，许可证分别位于 `public/fonts/OFL.txt` 和 `public/fonts/noto-sans-sc-OFL.txt`。商品参考图片不随源码或生产静态资源分发。

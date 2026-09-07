@@ -38,7 +38,7 @@ npm run test:e2e
 
 开发服务使用仓库统一端口；生产浏览器测试前关闭开发服务，测试后关闭临时预览。`CHECK_INPUT=1` 使用开发诊断接口加测拖动、取消、多指缩放、后台暂停和过期提示。`CHECK_WEBKIT=1` 可增加 WebKit 模拟验证，需先安装对应 Playwright 浏览器。设备模拟不代表真实 iPad 硬件测试。开发环境提供 `window.__parking` 诊断接口，生产不暴露。
 
-关卡可通过 `npm run levels --workspace games/parking-escape` 从固定种子重新生成；运行后需重跑规则测试。模型、音效与封面来自本游戏；图标使用 lucide（ISC），字体使用系统字体。与实体玩具的差异是离散吸附、自动计步、求解提示、数字关卡和进度保存，不模拟推车力学。
+关卡可通过 `npm run levels --workspace games/parking-escape` 从固定种子重新生成；运行后需重跑规则测试。模型、音效与封面来自本游戏；图标使用 lucide（ISC），字体使用本地加载的 Noto Sans SC（SIL Open Font License），许可证位于 `public/fonts/noto-sans-sc-OFL.txt`。与实体玩具的差异是离散吸附、自动计步、求解提示、数字关卡和进度保存，不模拟推车力学。
 
 详细浏览器检查覆盖 Chrome 与 WebKit 的 1440 × 1000、1180 × 820、820 × 1180、390 × 844 和 844 × 390 视口，包含画布像素、移车前后变化、弹窗草稿、撤销重做、暂停、刷新、通关与下一关。`tests/edge-check.mjs` 补充最难关卡的完整通关、减少动态效果、损坏或禁用存储、WebGL 不可用的恢复界面。截图输出到根目录 `artifacts/parking-escape/`。
 

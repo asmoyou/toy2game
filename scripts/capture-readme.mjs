@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { chromium } from '@playwright/test';
 import { PNG } from 'pngjs';
+import { build } from 'vite';
 import { registry, root } from './catalog.mjs';
 
 const url = process.env.SITE_URL ?? 'http://localhost:5173/';
@@ -21,6 +23,21 @@ const asset = async (path, mime = 'image/png') => `data:${mime};base64,${(await 
 await mkdir(output, { recursive: true });
 await mkdir(artifacts, { recursive: true });
 const font = await asset(`${root}apps/web/public/fonts/dm-sans.ttf`, 'font/ttf');
+const webRequire = createRequire(new URL('../apps/web/package.json', import.meta.url));
+const fontBuild = await build({
+  configFile: false,
+  logLevel: 'silent',
+  build: {
+    write: false,
+    emptyOutDir: false,
+    assetsInlineLimit: Number.MAX_SAFE_INTEGER,
+    rollupOptions: { input: webRequire.resolve('@fontsource-variable/noto-sans-sc/wght.css') },
+  },
+});
+const chineseFontCss = (Array.isArray(fontBuild) ? fontBuild : [fontBuild])
+  .flatMap(result => result.output).filter(file => file.type === 'asset' && file.fileName.endsWith('.css'))
+  .map(file => file.source).join('\n');
+assert.ok(chineseFontCss.includes('data:font/woff2'), 'The standalone image layouts need embedded Noto Sans SC.');
 const mark = await asset(`${root}apps/web/public/favicon.png`);
 const covers = new Map();
 for (const game of registry) covers.set(game.id, await asset(`${root}apps/web/public/${game.cover}`));
@@ -80,10 +97,11 @@ async function capturePage(name, path, viewport, canvas) {
 }
 
 const css = `
+  ${chineseFontCss}
   @font-face { font-family: 'DM Sans'; src: url('${font}'); font-weight: 100 1000; }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
-  body { color: #242826; background: #f6f7f8; font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif; letter-spacing: 0; }
+  body { color: #242826; background: #f6f7f8; font-family: 'DM Sans', 'Noto Sans SC Variable', sans-serif; letter-spacing: 0; }
   h1, h2, h3, p, figure { margin: 0; }
   .sheet { width: 1600px; height: 1280px; padding: 54px 64px 36px; overflow: hidden; }
   .brand { display: flex; align-items: center; gap: 20px; }

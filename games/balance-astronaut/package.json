@@ -11,6 +11,7 @@
     "test:browser": "node tests/browser-check.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/noto-sans-sc": "5.3.0",
     "@toy2game/catalog": "*",
     "cannon-es": "^0.20.0",
     "lucide": "^0.577.0",

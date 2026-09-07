@@ -1,3 +1,5 @@
+@import '@fontsource-variable/noto-sans-sc/wght.css';
+
 @font-face {
   font-family: "DM Sans";
   font-style: normal;
@@ -7,7 +9,7 @@
 }
 
 :root {
-  font-family: "DM Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "DM Sans", "Noto Sans SC Variable", sans-serif;
   color: #344c41;
   background: #edf3ee;
   font-synthesis: none;

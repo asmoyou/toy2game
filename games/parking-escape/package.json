@@ -11,6 +11,7 @@
     "levels": "node --experimental-strip-types scripts/generate-levels.ts"
   },
   "dependencies": {
+    "@fontsource-variable/noto-sans-sc": "5.3.0",
     "@toy2game/catalog": "*",
     "boardgame.io": "^0.50.2",
     "lucide": "^0.577.0",

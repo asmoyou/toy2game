@@ -2,7 +2,7 @@
 
 使用 TypeScript、Three.js 和 cannon-es 开发的同屏 3D 平衡游戏。优先支持 iPad 触控，并支持桌面和手机。
 
-## 规则与参考
+## 游戏规则
 
 本作采用以下数字版规则：
 
@@ -39,4 +39,4 @@ SITE_URL=http://localhost:5173/ npm run test:games
 
 开发服务运行时，可在根目录执行 `GAME_ID=balance-astronaut SITE_URL=http://localhost:5173/ npm run covers`。脚本通过合法放置动作推进到对局中途，截取实际场景作为大厅封面，地址需替换为当前开发服务地址。
 
-所有 3D 模型、图案和声音由本游戏代码生成；不依赖远程素材。字体使用系统中文字体。参考商品图不作为生产资源发布，封面截自实际游戏。
+所有 3D 模型、图案和声音由本游戏代码生成；不依赖远程素材。中文字体使用本地加载的 Noto Sans SC，遵循 SIL Open Font License，许可证位于 `public/fonts/noto-sans-sc-OFL.txt`。封面截自实际游戏。

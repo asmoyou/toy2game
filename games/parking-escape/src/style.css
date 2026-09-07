@@ -1,4 +1,6 @@
-:root { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; color: #334b51; background: #edf3f5; font-synthesis: none; font-weight: 400; --ink: #334b51; --muted: #7b9097; --line: #dee7e9; --accent: #277b83; }
+@import '@fontsource-variable/noto-sans-sc/wght.css';
+
+:root { font-family: 'Noto Sans SC Variable', sans-serif; color: #334b51; background: #edf3f5; font-synthesis: none; font-weight: 400; --ink: #334b51; --muted: #7b9097; --line: #dee7e9; --accent: #277b83; }
 * { box-sizing: border-box; letter-spacing: 0; }
 body { margin: 0; }
 button, select, a { -webkit-tap-highlight-color: transparent; }

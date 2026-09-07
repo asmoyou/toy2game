@@ -42,7 +42,7 @@ npm test --workspace games/penguin-ice
 npm run test:balance --workspace games/penguin-ice
 ```
 
-`dist/` 可部署到静态网站服务。游戏模型和声音由代码生成；字体优先使用 Noto Sans SC，加载失败时自动使用系统中文字体。
+`dist/` 可部署到静态网站服务。游戏模型和声音由代码生成；Noto Sans SC 字体随站点在本地加载，遵循 SIL Open Font License，许可证位于 `public/fonts/noto-sans-sc-OFL.txt`。
 
 启动开发服务器后，运行浏览器验证：
 

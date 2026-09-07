@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap');
+@import '@fontsource-variable/noto-sans-sc/wght.css';
 
 :root {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  font-family: 'Noto Sans SC Variable', sans-serif;
   color: #293f48;
   background: #eaf5f8;
   font-synthesis: none;

@@ -1,5 +1,7 @@
+@import '@fontsource-variable/noto-sans-sc/wght.css';
+
 @font-face { font-family: 'DM Sans'; src: url('/fonts/dm-sans.ttf') format('truetype'); font-style: normal; font-weight: 100 1000; font-display: swap; }
-:root { font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif; color: #242826; background: #f6f7f8; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; letter-spacing: 0; font-weight: 400; }
+:root { font-family: 'DM Sans', 'Noto Sans SC Variable', sans-serif; color: #242826; background: #f6f7f8; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; letter-spacing: 0; font-weight: 400; }
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; }
 button, input, select { font: inherit; }

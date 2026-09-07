@@ -161,7 +161,7 @@ SITE_URL=http://localhost:5173/ npm run test:games
 
 游戏场景主要由 Three.js 程序化建模，README 介绍图使用实际游戏截图排版制作。各游戏 README 记录参考来源、规则依据和数字版差异；本项目并非所参考实体产品的官方版本。
 
-DM Sans 字体保留 [SIL Open Font License](apps/web/public/fonts/OFL.txt)，第三方依赖各自遵循其许可证。
+网页使用本地加载的 DM Sans 与 Noto Sans SC 字体，均允许在遵守 SIL Open Font License 的前提下免费商用；许可证分别保留在 [DM Sans](apps/web/public/fonts/OFL.txt) 和 [Noto Sans SC](apps/web/public/fonts/noto-sans-sc-OFL.txt)。字体通过本站提供，不依赖远程字体服务，第三方依赖各自遵循其许可证。
 
 本项目采用自定义的 [Toy2Game Noncommercial License 1.0](LICENSE)：
 

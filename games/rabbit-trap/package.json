@@ -11,6 +11,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@fontsource-variable/noto-sans-sc": "5.3.0",
     "@toy2game/catalog": "*",
     "boardgame.io": "^0.50.2",
     "gsap": "^3.13.0",
