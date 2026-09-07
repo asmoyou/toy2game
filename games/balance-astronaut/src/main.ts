@@ -1,6 +1,6 @@
 import { createIcons, ArrowLeft, ArrowRight, ArrowDownToLine, CircleHelp, Settings2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, RotateCw, LocateFixed, Grid2X2, Pause, Play, X, Dices, Orbit, Users, Bot, UserRound, Trophy, Check, Sparkles } from 'lucide';
 import { libraryUrl, recordVisit } from '@toy2game/catalog/browser';
-import { BalanceGame } from './game';
+import { BalanceGame, SETTLE_TIMEOUT } from './game';
 import { BalanceScene } from './scene';
 import { GameAudio } from './audio';
 import { SLOTS, PLAYER_COLORS, PLAYER_NAMES, SETTINGS_KEY, parseSettings } from './board';
@@ -89,7 +89,7 @@ $('#app').innerHTML = `
     <div class="dialog-top"><span class="eyebrow">MISSION BRIEF</span>${button('close-rules', '关闭规则', 'x', 'close-dialog')}</div>
     <h2 id="rules-title">一起保持平衡</h2>
     <div class="rules-visual">${helmet(0)}<span>${icon('orbit')}</span>${helmet(1)}</div>
-    <ol class="rules-list"><li><strong>轮流登舱</strong><p>从空盘开始，每回合放置 1 位太空人；骰子挑战中，按点数逐一放置。</p></li><li><strong>等它稳一稳</strong><p>每位太空人都会改变平台的重心，平台稳定后才能继续。</p></li><li><strong>别让队员倒下</strong><p>有队员倒下或滑落时，当前玩家失败，其余队伍获胜。全部站稳 ${SLOTS.length} 个位置，全员共同获胜。</p></li></ol>
+    <ol class="rules-list"><li><strong>轮流登舱</strong><p>从空盘开始，每回合放置 1 位太空人；骰子挑战中，按点数逐一放置。</p></li><li><strong>等它稳一稳</strong><p>每次放置最多观察 ${SETTLE_TIMEOUT} 秒，提前稳定就继续；超时无人倒下也会继续回合。暂停期间不计时。</p></li><li><strong>别让队员倒下</strong><p>有队员倒下或滑落时，最后放置的玩家失败，其余队伍获胜。全部 ${SLOTS.length} 个位置完成观察且无人倒下，全员共同获胜。</p></li></ol>
     <button class="primary-button wide close-dialog">${icon('check')}准备好了</button>
   </dialog>
   <dialog id="settings-dialog" aria-labelledby="settings-title">
@@ -149,6 +149,8 @@ function updateSound() {
   refreshIcons();
 }
 
+function settlingLabel() { return `观察平衡 · 剩余 ${Math.max(1, Math.ceil(SETTLE_TIMEOUT - game.settlingTime))} 秒`; }
+
 function render() {
   lastRevision = game.revision;
   $('#mode-label').textContent = settings.mode === 'dice' ? '骰子挑战' : '轮流放置';
@@ -156,7 +158,7 @@ function render() {
   $('#round-label').textContent = `第 ${game.round} 轮`;
   $('#turn-heading').textContent = game.phase === 'finished' ? (game.loser === null ? '全部登舱啦' : '哎呀，失衡了') : game.phase === 'settling' ? '稳住，稳住' : game.isBot ? '电脑思考中' : '轮到你啦';
   $('#active-crew').innerHTML = `${helmet(game.turn)}<span style="color:${PLAYER_COLORS[game.turn]}"><strong>${PLAYER_NAMES[game.turn]}</strong><small>${game.isBot ? '电脑队员' : `玩家 ${game.turn + 1}`}</small></span>`;
-  $('#turn-description').textContent = game.phase === 'finished' ? (game.loser === null ? '全员成功抵达空间站' : '本次登舱失去了平衡') : game.phase === 'settling' ? '平台晃动中' : game.phase === 'roll' || game.phase === 'rolling' ? '本回合 · 等待骰子结果' : `本回合 · 还需放置 ${game.remaining} 位`;
+  $('#turn-description').textContent = game.phase === 'finished' ? (game.loser === null ? '全员成功抵达空间站' : '本次登舱失去了平衡') : game.phase === 'settling' ? settlingLabel() : game.phase === 'roll' || game.phase === 'rolling' ? '本回合 · 等待骰子结果' : `本回合 · 还需放置 ${game.remaining} 位`;
   $('#turn-steps').innerHTML = Array.from({ length: settings.count }, (_, index) => `<span style="--team:${PLAYER_COLORS[index]}" class="${index === game.turn ? 'active' : ''}"></span>`).join('');
   $('#crew-count').textContent = String(game.physics.crew.size).padStart(2, '0');
   $('#players').style.setProperty('--count', String(settings.count));
@@ -164,7 +166,7 @@ function render() {
   $<HTMLButtonElement>('#slot-button').disabled = !game.canPlace || game.isBot;
   $('#remaining-label').textContent = game.phase === 'roll' || game.phase === 'rolling' ? '本回合待定' : game.phase === 'finished' ? '任务结束' : `还需放置 ${game.remaining} 位`;
   $('#action-label').textContent = game.isBot && game.phase !== 'finished' ? '电脑回合' : '本回合';
-  $('#movement-state').textContent = game.phase === 'settling' ? '平台晃动中' : game.phase === 'finished' ? '登舱结束' : game.isBot ? '机器人行动中' : '等待登舱';
+  $('#movement-state').textContent = game.phase === 'settling' ? settlingLabel() : game.phase === 'finished' ? '登舱结束' : game.settleTimedOut ? `已等 ${SETTLE_TIMEOUT} 秒，继续回合` : game.isBot ? '机器人行动中' : '等待登舱';
   const action = $<HTMLButtonElement>('#action-button');
   const rollPhase = game.phase === 'roll' || game.phase === 'rolling';
   $('#slot-button').hidden = rollPhase || game.phase === 'finished';
@@ -215,6 +217,13 @@ function frame() {
     $('#dial-dot').style.transform = `translate(${Math.max(-30, Math.min(30, lean.x * 110))}px, ${Math.max(-30, Math.min(30, lean.z * 110))}px)`;
     $('#balance-word').textContent = tilt < 5 ? '稳稳当当' : tilt < 12 ? '有一点晃' : tilt < 20 ? '小心偏重' : '失衡警报';
     $('.balance-panel').classList.toggle('warning', tilt >= 12);
+    if (game.phase === 'settling') {
+      const label = settlingLabel();
+      if ($('#turn-description').textContent !== label) {
+        $('#turn-description').textContent = label;
+        $('#movement-state').textContent = label;
+      }
+    }
   }
   if (finishCountdown >= 0 && !game.paused) {
     finishCountdown -= elapsed;
@@ -235,7 +244,7 @@ function restart() {
 }
 
 function exposeDiagnostics() {
-  Object.assign(window, { __balance: { game, diagnostics: () => scene?.diagnostics(), state: () => ({ phase: game.phase, turn: game.turn, moves: game.moves, remaining: game.remaining, selected: game.selected, paused: game.paused, time: game.time, loser: game.loser, tilt: game.physics.tilt, count: game.physics.crew.size, settings }) } });
+  Object.assign(window, { __balance: { game, diagnostics: () => scene?.diagnostics(), state: () => ({ phase: game.phase, turn: game.turn, moves: game.moves, remaining: game.remaining, selected: game.selected, paused: game.paused, time: game.time, settlingTime: game.settlingTime, settleTimedOut: game.settleTimedOut, loser: game.loser, tilt: game.physics.tilt, count: game.physics.crew.size, settings }) } });
 }
 
 $('#rules-button').addEventListener('click', () => openDialog('#rules-dialog'));

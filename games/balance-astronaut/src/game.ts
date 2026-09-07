@@ -3,6 +3,7 @@ import { BalancePhysics, CREW_MASS, STEP } from './physics.ts';
 
 export type Phase = 'roll' | 'rolling' | 'place' | 'settling' | 'finished';
 export type Actor = 'human' | 'bot';
+export const SETTLE_TIMEOUT = 8;
 
 export class BalanceGame {
   readonly physics: BalancePhysics;
@@ -21,10 +22,12 @@ export class BalanceGame {
   paused = false;
   peakTilt = 0;
   revision = 0;
+  settleTimedOut = false;
   private randomState: number;
   private accumulator = 0;
   private phaseTime = 0;
   private botAt = 0.9;
+  private lastPlacer: number | null = null;
 
   constructor(settings: Settings, seed = Date.now()) {
     this.settings = parseSettings(settings);
@@ -43,6 +46,7 @@ export class BalanceGame {
   get isBot() { return this.settings.bots[this.turn]; }
   get empty() { return SLOTS.filter(slot => !this.physics.crew.has(slot.id)); }
   get canPlace() { return !this.paused && this.phase === 'place'; }
+  get settlingTime() { return this.phase === 'settling' ? this.time - this.phaseTime : 0; }
 
   private allowed(actor: Actor) { return !this.paused && (actor === 'bot') === this.isBot; }
 
@@ -51,6 +55,7 @@ export class BalanceGame {
     this.dice = 1 + Math.floor(this.random() * 6);
     this.phase = 'rolling';
     this.phaseTime = this.time;
+    this.settleTimedOut = false;
     this.revision++;
     return true;
   }
@@ -62,6 +67,8 @@ export class BalanceGame {
     this.selected = null;
     this.phase = 'settling';
     this.phaseTime = this.time;
+    this.settleTimedOut = false;
+    this.lastPlacer = this.turn;
     this.revision++;
     return true;
   }
@@ -89,7 +96,9 @@ export class BalanceGame {
     const fallen = this.physics.fallen;
     if (fallen.length) {
       this.fallen = fallen;
-      this.loser = this.turn;
+      // A timeout may have handed over input before a slow slide actually reaches the edge.
+      this.loser = this.lastPlacer ?? this.turn;
+      this.turn = this.loser;
       this.phase = 'finished';
       this.revision++;
       return;
@@ -101,7 +110,9 @@ export class BalanceGame {
       this.revision++;
     }
     if (this.phase === 'settling') {
-      if (this.time - this.phaseTime > 0.8 && this.physics.stable) {
+      const stable = this.physics.stable;
+      if (this.settlingTime > 0.8 && (stable || this.settlingTime >= SETTLE_TIMEOUT)) {
+        this.settleTimedOut = !stable;
         this.remaining--;
         if (!this.empty.length) this.phase = 'finished';
         else if (this.remaining > 0) this.phase = 'place';

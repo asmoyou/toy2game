@@ -52,9 +52,13 @@ for (const game of [
     if (game.id === 'balance-astronaut') {
       await expect(page.locator('#crew-count')).toHaveText('00');
       await page.getByRole('button', { name: '停靠位列表', exact: true }).click();
-      await page.getByRole('button', { name: '1 号停靠位', exact: true }).click();
+      await page.getByRole('button', { name: '35 号停靠位', exact: true }).click();
       await expect(page.locator('#crew-count')).toHaveText('01');
       await expect(page.getByRole('button', { name: '放置太空人', exact: true })).toHaveCount(0);
+      await expect(page.locator('#movement-state')).toContainText('观察平衡');
+      await expect(page.locator('#movement-state')).toHaveText('已等 8 秒，继续回合');
+      await expect(page.locator('#crew-count')).toHaveText('02');
+      await expect(page.getByRole('button', { name: '停靠位列表', exact: true })).toBeEnabled();
     }
     if (game.id === 'parking-escape') {
       await expect(page.locator('#move-count')).toHaveText('00');

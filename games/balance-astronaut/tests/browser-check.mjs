@@ -14,7 +14,7 @@ async function placeFromList(page, id) {
   await page.getByRole('button', { name: '停靠位列表', exact: true }).click();
   await page.getByRole('button', { name: `${id + 1} 号停靠位`, exact: true }).click();
 }
-async function settled(page) { await page.waitForFunction(() => window.__balance.state().phase !== 'settling', null, { timeout: 20000 }); }
+async function settled(page) { await page.waitForFunction(() => window.__balance.state().phase !== 'settling', null, { timeout: 12000 }); }
 async function configure(page, { mode = 'classic', count = 2, bots = [] } = {}) {
   await page.getByRole('button', { name: '游戏设置', exact: true }).click();
   await page.locator(`input[name="mode"][value="${mode}"]`).check();
@@ -127,6 +127,52 @@ try {
         assert.equal((await state(page)).moves, 0);
         assert.equal(await page.locator('#spin-button').isDisabled(), false);
       }
+
+      await configure(page);
+      await placeFromList(page, 34);
+      await page.waitForFunction(() => window.__balance.state().settlingTime >= 1);
+      assert.match(await page.locator('#movement-state').textContent(), /观察平衡 · 剩余 \d 秒/);
+      assert.equal(await page.getByRole('button', { name: '停靠位列表', exact: true }).isDisabled(), true);
+      await page.getByRole('button', { name: '暂停游戏', exact: true }).click();
+      const pausedWait = (await state(page)).settlingTime;
+      await page.waitForTimeout(300);
+      assert.equal((await state(page)).settlingTime, pausedWait);
+      await page.locator('#resume-button').click();
+      await page.getByRole('button', { name: '游戏规则', exact: true }).click();
+      const modalWait = (await state(page)).settlingTime;
+      await page.waitForTimeout(300);
+      assert.equal((await state(page)).settlingTime, modalWait);
+      await page.evaluate(() => {
+        Object.defineProperty(document, 'hidden', { configurable: true, value: true });
+        document.dispatchEvent(new Event('visibilitychange'));
+      });
+      await page.getByRole('button', { name: '关闭规则', exact: true }).click();
+      assert.equal((await state(page)).paused, true, 'closing a dialog while hidden must keep the deadline paused');
+      await page.waitForTimeout(300);
+      assert.equal((await state(page)).settlingTime, modalWait);
+      await page.evaluate(() => {
+        delete document.hidden;
+        document.dispatchEvent(new Event('visibilitychange'));
+      });
+      assert.equal((await state(page)).paused, false);
+      await page.screenshot({ path: new URL(`${engine}-${name}-settling.png`, output).pathname });
+      await settled(page);
+      const timeout = await state(page);
+      assert.equal(timeout.phase, 'place');
+      assert.equal(timeout.settleTimedOut, true);
+      assert.equal(timeout.turn, 1);
+      assert.equal(timeout.moves, 1);
+      assert.equal(timeout.loser, null);
+      assert.equal(await page.locator('#movement-state').textContent(), '已等 8 秒，继续回合');
+      assert.equal(await page.getByRole('button', { name: '停靠位列表', exact: true }).isEnabled(), true);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+      await checkPixels(page);
+      await page.screenshot({ path: new URL(`${engine}-${name}-timeout.png`, output).pathname });
+      await placeFromList(page, 43);
+      assert.equal((await state(page)).moves, 2);
+      assert.equal((await state(page)).settleTimedOut, false);
+      assert.ok((await state(page)).settlingTime < 2, 'the next placement gets a new observation period');
+      await settled(page);
       assert.deepEqual(errors, []);
       console.log(`PASS ${engine} ${name}`);
     } finally { await context.close(); }

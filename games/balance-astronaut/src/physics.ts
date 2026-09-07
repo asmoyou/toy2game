@@ -8,6 +8,8 @@ export const COM_DEPTH = PIVOT_LOCAL_Y - DECK_CENTER_Y;
 export const CREW_COM = 0.48;
 export const CREW_MASS = 0.0025;
 export const PLATE_MASS = 0.18;
+const REST_DISTANCE = 0.012;
+const REST_ANGLE = 0.02;
 export type CrewBody = { slot: number; owner: number; body: CANNON.Body };
 
 export class BalancePhysics {
@@ -94,13 +96,13 @@ export class BalancePhysics {
 
   step() {
     this.world.step(STEP);
-    // Measure sustained pose changes: contact-solver velocity spikes can occur on stationary feet.
+    // Ignore sub-millimetre foot jitter (0.24 mm) and tiny rocking, but keep tracking sustained drift.
     const bodies = [this.plate, ...[...this.crew.values()].map(crew => crew.body)];
     const moving = bodies.some(body => {
       const origin = this.restOrigins.get(body);
-      if (!origin || body.position.distanceSquared(origin.position) > 0.008 ** 2) return true;
+      if (!origin || body.position.distanceSquared(origin.position) > REST_DISTANCE ** 2) return true;
       const a = body.quaternion, b = origin.quaternion;
-      return Math.abs(a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w) < Math.cos(0.01 / 2);
+      return Math.abs(a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w) < Math.cos(REST_ANGLE / 2);
     });
     if (moving) {
       this.restTime = 0;

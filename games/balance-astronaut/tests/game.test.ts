@@ -1,16 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as CANNON from 'cannon-es';
-import { BalanceGame } from '../src/game.ts';
+import { BalanceGame, SETTLE_TIMEOUT } from '../src/game.ts';
 import { BalancePhysics, STEP, COM_DEPTH, PIVOT_Y } from '../src/physics.ts';
 import { DEFAULT_SETTINGS, parseSettings, SLOTS, RINGS, DECK_CENTER_Y, PIVOT_LOCAL_Y } from '../src/board.ts';
 
 const humans = () => ({ ...DEFAULT_SETTINGS, bots: [false, false, false, false] });
 function advance(game: BalanceGame, seconds: number) { for (let i = 0; i < seconds * 60; i++) game.update(1 / 60); }
 function settle(game: BalanceGame) {
-  for (let i = 0; i < 900 && game.phase === 'settling'; i++) game.update(1 / 60);
-  assert.notEqual(game.phase, 'settling', 'the platform must settle or fall within 15 seconds');
+  const started = game.time;
+  for (let i = 0; i < Math.ceil((SETTLE_TIMEOUT + STEP) * 60) && game.phase === 'settling'; i++) game.update(1 / 60);
+  assert.notEqual(game.phase, 'settling', 'each placement must resolve within the observation limit');
+  assert.ok(game.time - started <= SETTLE_TIMEOUT + 1 / 60 + 1e-8);
 }
+
+// Keep the real world running while reproducing a rest check that never accepts contact jitter.
+function keepUnsettled(game: BalanceGame) { Object.defineProperty(game.physics, 'stable', { get: () => false }); }
 
 test('four descending rings provide unique positions and a shell center of mass below the pivot', () => {
   assert.equal(RINGS.length, 4);
@@ -56,6 +61,119 @@ test('opposite loading restores balance without delayed falls after the turn end
   game.dispose();
 });
 
+test('minor foot jitter can settle early, and all 48 first placements have a bounded wait', () => {
+  for (const slot of SLOTS) {
+    const game = new BalanceGame(humans(), 42);
+    assert.equal(game.place(slot.id), true);
+    settle(game);
+    assert.equal(game.phase, 'place', `slot ${slot.id + 1} must allow another placement`);
+    assert.equal(game.turn, 1);
+    assert.equal(game.loser, null);
+    if (slot.id === 2) {
+      assert.ok(game.time < 3, 'the formerly stuck inner slot should now settle normally');
+      assert.equal(game.settleTimedOut, false);
+    }
+    game.dispose();
+  }
+});
+
+test('the timeout advances once, pauses with the game, and resets for the next placement', () => {
+  const game = new BalanceGame(humans(), 42);
+  keepUnsettled(game);
+  game.place(0);
+  advance(game, SETTLE_TIMEOUT - 0.5);
+  assert.equal(game.phase, 'settling');
+  assert.equal(game.turn, 0);
+  assert.equal(game.place(3), false);
+  const waited = game.settlingTime;
+  game.paused = true;
+  advance(game, 60);
+  assert.equal(game.settlingTime, waited);
+  assert.equal(game.phase, 'settling');
+  game.paused = false;
+  advance(game, 0.6);
+  assert.equal(game.phase, 'place');
+  assert.equal(game.turn, 1);
+  assert.equal(game.moves, 1);
+  assert.equal(game.remaining, 1);
+  assert.equal(game.settleTimedOut, true);
+  advance(game, 2);
+  assert.equal(game.turn, 1, 'the expired deadline must not advance another turn');
+  assert.equal(game.place(3), true);
+  assert.equal(game.settlingTime, 0);
+  assert.equal(game.settleTimedOut, false);
+  advance(game, 1);
+  assert.equal(game.phase, 'settling');
+  assert.equal(game.turn, 1);
+  game.dispose();
+});
+
+test('timeout settlements consume the dice quota before handing over the turn', () => {
+  const game = new BalanceGame({ ...humans(), mode: 'dice' }, 81234);
+  keepUnsettled(game);
+  game.roll(); advance(game, 0.8);
+  const quota = game.remaining;
+  assert.ok(quota > 1);
+  for (let i = 0; i < quota; i++) {
+    assert.equal(game.place(game.chooseBotSlot()!), true);
+    settle(game);
+    assert.equal(game.settleTimedOut, true);
+    assert.equal(game.turn, i + 1 === quota ? 1 : 0);
+    assert.equal(game.remaining, i + 1 === quota ? 1 : quota - i - 1);
+  }
+  assert.equal(game.phase, 'roll');
+  assert.equal(game.moves, quota);
+  game.dispose();
+});
+
+test('an actual fall on the deadline takes priority over timeout handover', () => {
+  const game = new BalanceGame(humans(), 42);
+  keepUnsettled(game);
+  game.place(0);
+  while (game.time + STEP < SETTLE_TIMEOUT - STEP / 2) game.update(STEP);
+  assert.equal(game.phase, 'settling');
+  game.physics.crew.get(0)!.body.position.y = 1;
+  game.update(STEP);
+  assert.equal(game.phase, 'finished');
+  assert.equal(game.loser, 0);
+  assert.deepEqual(game.fallen, [0]);
+  assert.equal(game.turn, 0);
+  assert.equal(game.settleTimedOut, false);
+  game.dispose();
+});
+
+test('a slow fall after timeout still belongs to the last placer until another placement', () => {
+  const game = new BalanceGame(humans(), 42);
+  game.place(34); settle(game);
+  assert.equal(game.settleTimedOut, true);
+  assert.equal(game.turn, 1);
+  assert.equal(game.physics.stable, false, 'the timeout must not freeze or fake the physics');
+  advance(game, 25);
+  assert.equal(game.phase, 'finished');
+  assert.equal(game.loser, 0);
+  assert.equal(game.turn, 0);
+  assert.deepEqual(game.fallen, [34]);
+  game.dispose();
+});
+
+test('a bot receives the timed-out turn through the normal action schedule', () => {
+  const game = new BalanceGame(DEFAULT_SETTINGS, 42);
+  game.place(34); settle(game);
+  assert.equal(game.settleTimedOut, true);
+  assert.equal(game.turn, 1);
+  assert.equal(game.place(43), false, 'humans cannot take over the bot turn');
+  game.paused = true;
+  advance(game, 20);
+  assert.equal(game.moves, 1);
+  game.paused = false;
+  advance(game, 1.7);
+  assert.equal(game.moves, 2);
+  assert.equal(game.phase, 'settling');
+  assert.equal(game.settleTimedOut, false);
+  assert.deepEqual(game.placed, [1, 1, 0, 0]);
+  game.dispose();
+});
+
 test('outer loads have greater leverage and repeated bias makes an actual body fall on the responsible turn', () => {
   const inner = new BalanceGame(humans(), 42);
   inner.place(0); settle(inner);
@@ -96,6 +214,18 @@ test('a completely occupied and supported platform finishes collectively', () =>
   for (let id = 1; id < SLOTS.length; id++) game.physics.add(id, id % 2);
   assert.equal(game.place(0), true);
   settle(game);
+  assert.equal(game.phase, 'finished');
+  assert.equal(game.loser, null);
+  assert.equal(game.physics.crew.size, SLOTS.length);
+  game.dispose();
+});
+
+test('the final free slot can complete collectively at the observation limit', () => {
+  const game = new BalanceGame(humans(), 42);
+  keepUnsettled(game);
+  for (let id = 1; id < SLOTS.length; id++) game.physics.add(id, id % 2);
+  game.place(0); settle(game);
+  assert.equal(game.settleTimedOut, true);
   assert.equal(game.phase, 'finished');
   assert.equal(game.loser, null);
   assert.equal(game.physics.crew.size, SLOTS.length);
