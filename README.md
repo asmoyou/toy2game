@@ -31,7 +31,7 @@ A browser-based toy box: playful 3D games for solo puzzles and local multiplayer
 | ![企鹅敲敲敲实际对局：敲冰后冰面失去支撑，企鹅落水](docs/images/penguin-ice-gameplay.gif) | ![移车出库实际对局：移动阻挡车辆，警车在四步内驶出停车场](docs/images/parking-escape-gameplay.gif) |
 
 - **和家人朋友一起玩**：企鹅、小兔和太空人支持 2 至 4 个同屏席位，轮到谁就由谁操作，也可以加入电脑对手。
-- **一个人休息一会儿**：选择电脑对手，或在移车出库的 24 个关卡里挑战更少步数。
+- **一个人休息一会儿**：选择电脑对手，或在移车出库的 120 个关卡里挑战更少步数。
 - **把玩具拿近一点看**：3D 场景可以旋转、缩放和复位，支持触控与鼠标；浏览器允许时可以进入全屏。
 
 所有游戏都从大厅进入。大厅可以搜索、分类、收藏、查看最近玩过，也可以“随便玩一个”。
@@ -43,7 +43,7 @@ A browser-based toy box: playful 3D games for solo puzzles and local multiplayer
 | [企鹅敲敲敲](https://games.asmo.top/games/penguin-ice/) | 轮流敲冰，别让企鹅失去支撑落水 | 2–4 个席位，约 3–10 分钟 | 37 / 61 块冰场、连锁坍塌、电脑对手 |
 | [小兔闯关](https://games.asmo.top/games/rabbit-trap/) | 翻牌前进，穿过机关，争先登上胡萝卜山顶 | 2–4 个席位，约 10–20 分钟 | 55 格地图、道具与天气、全电脑对战、对局存档 |
 | [平衡太空人](https://games.asmo.top/games/balance-astronaut/) | 把队员逐一放上平台，守住重心与平衡 | 2–4 个席位，约 3–8 分钟 | 48 个停靠位、轮流放置、骰子挑战、电脑对手 |
-| [益智移车出库](https://games.asmo.top/games/parking-escape/) | 沿车身方向挪车，让警车从出口驶出 | 单人，约 2–10 分钟 | 24 个独立关卡、撤销 / 重做、下一步提示、进度存档 |
+| [益智移车出库](https://games.asmo.top/games/parking-escape/) | 沿车身方向挪车，让警车从出口驶出 | 单人，约 2–10 分钟 | 120 个独立关卡、撤销 / 重做、下一步提示、进度存档 |
 
 点击游戏名直接试玩。多人游戏中的席位可以包含电脑；时长为参考值。具体规则、数字版改编与参考来源：[企鹅](games/penguin-ice/README.md)、[小兔](games/rabbit-trap/README.md)、[太空人](games/balance-astronaut/README.md)、[移车](games/parking-escape/README.md)。
 

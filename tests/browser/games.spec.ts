@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { PNG } from 'pngjs';
+import parkingLevels from '../../games/parking-escape/src/levels.json' with { type: 'json' };
 
 for (const game of [
   { id: 'penguin-ice', title: '企鹅敲敲敲', canvas: '#scene canvas', control: '游戏设置', action: '向右旋转视角', close: '关闭设置', debug: '__iceGame' },
@@ -78,6 +79,20 @@ for (const game of [
       await expect(page.locator('#move-count')).toHaveText('01');
       await page.getByRole('button', { name: '新的一局' }).click();
       await page.getByRole('button', { name: '继续这局' }).click();
+      await expect(page.locator('#move-count')).toHaveText('01');
+      const last = parkingLevels.at(-1)!;
+      await page.getByRole('button', { name: '游戏设置' }).click();
+      await page.getByRole('button', { name: '出库高手', exact: true }).click();
+      await page.getByRole('button', { name: `第 ${last.id} 关 ${last.name}`, exact: true }).click();
+      await page.getByRole('button', { name: '按此关卡开始新局' }).click();
+      await expect(page.locator('#level-number')).toHaveText(`第 ${last.id} 关`);
+      await expect(page.locator('#minimum')).toHaveText(String(last.minimum));
+      await expect(page.locator('#move-count')).toHaveText('00');
+      await page.getByRole('button', { name: '提示', exact: true }).click();
+      await page.getByRole('button', { name: '执行提示这一步' }).click();
+      await expect(page.locator('#move-count')).toHaveText('01');
+      await page.reload();
+      await expect(page.locator('#level-number')).toHaveText(`第 ${last.id} 关`);
       await expect(page.locator('#move-count')).toHaveText('01');
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

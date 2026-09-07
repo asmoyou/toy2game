@@ -122,6 +122,16 @@ dialog p { font-size: 13px; line-height: 1.8; color: #7c9298; }
 .rules-list strong { font-size: 14px; font-weight: 600; }
 .rules-list p { font-size: 12px; margin: 8px 0 12px; }
 .wide { width: 100%; }
+#settings-form { display: flex; flex-direction: column; max-height: calc(100dvh - 90px); }
+#settings-form > :not(#level-grid) { flex-shrink: 0; }
+.difficulty-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 18px; }
+.difficulty-options button { min-height: 54px; border: 1px solid #dbe5e6; border-radius: 5px; font-size: 11px; padding: 6px 2px; }
+.difficulty-options small { display: block; margin-top: 4px; font-size: 10px; color: #748e94; font-variant-numeric: tabular-nums; }
+.difficulty-options button[aria-pressed="true"] { background: #e6f0ed; border-color: #68a497; box-shadow: inset 0 0 0 1px #68a497; color: #36776d; }
+#level-grid { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px; margin: -4px; }
+#level-grid fieldset { margin: 0; min-width: 0; }
+.settings-footer { border-top: 1px solid var(--line); margin-top: 16px; }
+.settings-footer .draft-summary { margin: 12px 0; }
 fieldset { border: 0; padding: 0; margin: 0 0 20px; }
 legend { font-size: 12px; font-weight: 500; margin-bottom: 10px; color: #748e94; }
 .level-options { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
@@ -229,6 +239,19 @@ legend { font-size: 12px; font-weight: 500; margin-bottom: 10px; color: #748e94;
   .move-panel { align-self: stretch; } .move-panel > label { margin-bottom: 0; } #vehicle-select { height: 38px; }
   .direction-controls { margin-top: 5px; }
   .hint-result { margin-top: 8px; }
+}
+@media (max-height: 500px) and (min-width: 600px) {
+  #settings-dialog { width: min(700px, calc(100vw - 28px)); padding: 16px 20px 20px; }
+  #settings-form { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-rows: auto auto minmax(0, 1fr) auto; column-gap: 22px; max-height: calc(100dvh - 70px); }
+  #settings-form .dialog-top { grid-column: 1 / -1; grid-row: 1; margin: -8px -8px 0 0; }
+  #settings-form h2 { grid-column: 1; grid-row: 2; font-size: 22px; margin: 4px 0 12px; }
+  .difficulty-options { grid-column: 1; grid-row: 3; grid-template-columns: repeat(2, minmax(0, 1fr)); align-self: start; margin: 0; }
+  .difficulty-options button { min-height: 44px; padding: 4px 2px; }
+  #level-grid { grid-column: 2; grid-row: 2 / 5; }
+  #level-grid legend { font-size: 10px; }
+  .level-options { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .level-options button { min-height: 48px; }
+  .settings-footer { grid-column: 1; grid-row: 4; margin-top: 8px; }
 }
 @media (max-width: 380px) { .level-options { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sidebar { gap: 12px 13px; padding-left: 15px; padding-right: 15px; } }
 @media (max-width: 380px) {

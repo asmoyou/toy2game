@@ -22,7 +22,7 @@ let seconds = initial.seconds;
 const best = initial.best;
 const audio = new ParkingAudio(); audio.enabled = loadSound();
 let scene: ParkingScene | undefined;
-let selected = 0, draftLevel = level.id, userPaused = false, resultShown = false;
+let selected = 0, draftLevel = level.id, draftDifficulty = level.difficulty, userPaused = false, resultShown = false;
 let activeDialog: HTMLDialogElement | null = null, lastFocus: HTMLElement | null = null;
 let worker: Worker | null = null, hint: Move | null = null, searching = false, task = 0;
 let unsubscribe: (() => void) | undefined;
@@ -55,12 +55,12 @@ $('#app').innerHTML = `
       <div class="puzzle-tools" role="group" aria-label="移车工具">${button('undo', '撤销一步', 'undo-2')}${button('redo', '重做一步', 'redo-2')}<button id="hint" class="hint-button" aria-label="提示" data-tooltip="提示">${icon('lightbulb')}<span>提示</span></button></div>
       <div class="move-panel"><label class="eyebrow" for="vehicle-select">当前车辆</label><div class="vehicle-select-wrap"><span id="car-swatch"></span><select id="vehicle-select" aria-label="当前车辆"></select></div><div class="direction-controls" role="group" aria-label="移动车辆">${button('move-back', '向左移动一格', 'arrow-left', 'direction-button')}${button('move-forward', '向右移动一格', 'arrow-right', 'direction-button')}<button id="exit" class="primary-button" aria-label="警车出库">出库${icon('arrow-right')}</button></div></div>
       <div class="hint-result" id="hint-result" hidden><span id="hint-label" role="status"></span><button id="apply-hint" class="icon-button" aria-label="执行提示这一步" data-tooltip="执行提示这一步">${icon('arrow-right')}</button></div>
-      <div class="chapter-progress"><div class="progress-heading"><span class="eyebrow">出库旅程</span><span id="completed">0 / 24</span></div><div class="progress-track"><span id="progress-fill"></span></div><div class="chapter-title"><span id="chapter-name">初来乍到</span><button id="all-levels" aria-label="选择关卡">全部关卡${icon('chevron-right')}</button></div><div class="chapter-levels" id="chapter-levels"></div></div>
+      <div class="chapter-progress"><div class="progress-heading"><span class="eyebrow">出库旅程</span><span id="completed">0 / ${LEVELS.length}</span></div><div class="progress-track"><span id="progress-fill"></span></div><div class="chapter-title"><span id="chapter-name">初来乍到</span><button id="all-levels" aria-label="选择关卡">全部关卡${icon('chevron-right')}</button></div><div class="chapter-levels" id="chapter-levels"></div></div>
     </aside>
   </main>
   <footer class="garage"><div class="garage-heading">${icon('car-front')}<span>本关车辆</span><strong id="car-count">9</strong></div><div class="garage-cars" id="garage-cars" role="group" aria-label="选择车辆"></div><span class="garage-end">${icon('flag')}出发有序，路路畅通</span></footer>
   <dialog id="rules-dialog" aria-labelledby="rules-title"><div class="dialog-top"><span class="eyebrow">PARKING ESCAPE</span>${button('close-rules', '关闭规则', 'x', 'close-dialog')}</div><h2 id="rules-title">游戏规则</h2><ol class="rules-list"><li><strong>各行其道</strong><p>车辆只能沿车身方向前后移动，不能转弯、横移或越过其他车辆。</p></li><li><strong>让出一条路</strong><p>黑白警车从右侧出口完全驶出，即为通关。</p></li><li><strong>少一步，更精彩</strong><p>一次连续滑动计一步，出库也计一步。达到最少步数得三星，多五步以内得二星，其余通关得一星。</p></li></ol><button class="primary-button wide close-dialog">${icon('check')}开始挑战</button></dialog>
-  <dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form"><div class="dialog-top"><span class="eyebrow">24 个停车场</span>${button('close-settings', '关闭设置', 'x', 'close-dialog')}</div><h2 id="settings-title">选择关卡</h2><div id="level-grid"></div><div class="draft-summary" id="draft-summary"></div><button type="submit" class="primary-button wide">按此关卡开始新局${icon('arrow-right')}</button></form></dialog>
+  <dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form"><div class="dialog-top"><span class="eyebrow">${LEVELS.length} 个停车场</span>${button('close-settings', '关闭设置', 'x', 'close-dialog')}</div><h2 id="settings-title">选择关卡</h2><div class="difficulty-options" id="difficulty-options" role="group" aria-label="关卡难度"></div><div id="level-grid"></div><div class="settings-footer"><div class="draft-summary" id="draft-summary" role="status"></div><button type="submit" class="primary-button wide">按此关卡开始新局${icon('arrow-right')}</button></div></form></dialog>
   <dialog id="restart-dialog" aria-labelledby="restart-title"><div class="dialog-top"><span class="eyebrow">重新出发</span>${button('close-restart', '取消重开', 'x', 'close-dialog')}</div><h2 id="restart-title">重新开始这一关？</h2><p>本关车辆将回到初始位置。</p><div class="dialog-actions"><button class="secondary-button close-dialog">继续这局</button><button class="primary-button" id="confirm-restart">${icon('rotate-ccw')}重新开局</button></div></dialog>
   <dialog id="result-dialog" aria-labelledby="result-title"><div class="dialog-top"><span class="eyebrow">PARKING COMPLETE</span>${button('close-result', '查看停车场', 'x', 'close-dialog')}</div><div class="result-trophy">${icon('trophy')}</div><h2 id="result-title">顺利出库！</h2><p id="result-level"></p><div class="result-stars" id="result-stars"></div><div class="result-stats"><div><strong id="result-moves"></strong><span>移车步数</span></div><div><strong id="result-time"></strong><span>本局用时</span></div><div><strong id="result-best"></strong><span>个人最佳</span></div></div><button class="primary-button wide" id="next-level">下一关${icon('arrow-right')}</button><button class="text-button" id="play-again">${icon('rotate-ccw')}再来一局</button></dialog>
   <div id="toast" class="toast" role="status" hidden></div>
@@ -149,7 +149,8 @@ function renderProgress() {
   $('#completed').textContent = `${completed} / ${LEVELS.length}`;
   $('#progress-fill').style.width = `${completed / LEVELS.length * 100}%`;
   $('#chapter-name').textContent = DIFFICULTIES[level.difficulty];
-  $('#chapter-levels').innerHTML = LEVELS.filter(item => item.difficulty === level.difficulty).map(item => `<button type="button" data-level="${item.id}" aria-label="第 ${item.id} 关 ${item.name}" ${item.id === level.id ? 'aria-current="step"' : ''} class="${best[item.id] ? 'completed' : ''}">${number(item.id)}${best[item.id] ? icon('check') : ''}</button>`).join('');
+  const start = Math.floor((level.id - 1) / 6) * 6;
+  $('#chapter-levels').innerHTML = LEVELS.slice(start, start + 6).map(item => `<button type="button" data-level="${item.id}" aria-label="第 ${item.id} 关 ${item.name}" ${item.id === level.id ? 'aria-current="step"' : ''} class="${best[item.id] ? 'completed' : ''}">${number(item.id)}${best[item.id] ? icon('check') : ''}</button>`).join('');
 }
 
 function renderControls() {
@@ -228,8 +229,20 @@ function step(direction: number) {
 
 function settings(id = level.id, trigger = $('#settings')) {
   draftLevel = id;
-  $('#level-grid').innerHTML = DIFFICULTIES.map((name, difficulty) => `<fieldset><legend>${name}</legend><div class="level-options" role="group" aria-label="${name}">${LEVELS.filter(item => item.difficulty === difficulty).map(item => `<button type="button" data-draft="${item.id}" aria-label="第 ${item.id} 关 ${item.name}" aria-pressed="${item.id === draftLevel}" class="${best[item.id] ? 'completed' : ''}">${number(item.id)}<small>${best[item.id] ? icon('check') : `${item.minimum} 步`}</small></button>`).join('')}</div></fieldset>`).join('');
-  renderDraft(); openDialog('#settings-dialog', trigger);
+  draftDifficulty = LEVELS[id - 1].difficulty;
+  $('#difficulty-options').innerHTML = DIFFICULTIES.map((name, difficulty) => {
+    const challenges = LEVELS.filter(item => item.difficulty === difficulty);
+    return `<button type="button" data-difficulty="${difficulty}" aria-label="${name}" aria-pressed="${difficulty === draftDifficulty}">${name}<small>${challenges.filter(item => best[item.id]).length} / ${challenges.length}</small></button>`;
+  }).join('');
+  renderLevelOptions(); openDialog('#settings-dialog', trigger);
+  $(`[data-draft="${draftLevel}"]`).scrollIntoView({ block: 'nearest' });
+}
+
+function renderLevelOptions() {
+  document.querySelectorAll<HTMLElement>('[data-difficulty]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.difficulty) === draftDifficulty)));
+  $('#level-grid').innerHTML = `<fieldset><legend>${DIFFICULTIES[draftDifficulty]} · 所有关卡均可挑战</legend><div class="level-options" role="group" aria-label="${DIFFICULTIES[draftDifficulty]}">${LEVELS.filter(item => item.difficulty === draftDifficulty).map(item => `<button type="button" data-draft="${item.id}" aria-label="第 ${item.id} 关 ${item.name}" aria-pressed="${item.id === draftLevel}" class="${best[item.id] ? 'completed' : ''}">${number(item.id)}<small>${best[item.id] ? icon('check') : `${item.minimum} 步`}</small></button>`).join('')}</div></fieldset>`;
+  $('#level-grid').scrollTop = 0;
+  renderDraft();
 }
 
 function renderDraft() {
@@ -305,6 +318,7 @@ for (const event of ['fullscreenerror', 'webkitfullscreenerror']) document.addEv
 document.querySelectorAll('.close-dialog').forEach(button => button.addEventListener('click', closeDialog, { signal: listeners.signal }));
 document.querySelectorAll('dialog').forEach(dialog => dialog.addEventListener('cancel', event => { event.preventDefault(); closeDialog(); }, { signal: listeners.signal }));
 $('#settings-form').addEventListener('submit', event => { event.preventDefault(); startLevel(draftLevel); }, { signal: listeners.signal });
+$('#difficulty-options').addEventListener('click', event => { const button = (event.target as Element).closest<HTMLElement>('[data-difficulty]'); if (button) { draftDifficulty = Number(button.dataset.difficulty); renderLevelOptions(); } }, { signal: listeners.signal });
 $('#level-grid').addEventListener('click', event => { const button = (event.target as Element).closest<HTMLElement>('[data-draft]'); if (button) { draftLevel = Number(button.dataset.draft); renderDraft(); } }, { signal: listeners.signal });
 $('#chapter-levels').addEventListener('click', event => { const button = (event.target as Element).closest<HTMLElement>('[data-level]'); if (button) settings(Number(button.dataset.level), button); }, { signal: listeners.signal });
 $('#garage-cars').addEventListener('click', event => { const button = (event.target as Element).closest<HTMLElement>('[data-car]'); if (button) select(Number(button.dataset.car)); }, { signal: listeners.signal });
