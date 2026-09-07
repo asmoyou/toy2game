@@ -16,8 +16,9 @@ test('library renders real covers, searches, filters, sorts and handles no resul
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: `artifacts/library-${info.project.name}.png`, fullPage: true });
   await page.getByRole('button', { name: '策略棋盘', exact: true }).click();
-  await expect(page.locator('.game-card')).toHaveCount(1);
-  await expect(page.locator('.game-card')).toHaveAttribute('data-game', 'rabbit-trap');
+  const strategyGames = games.filter(game => game.category === 'strategy');
+  await expect(page.locator('.game-card')).toHaveCount(strategyGames.length);
+  for (const game of strategyGames) await expect(page.locator(`.game-card[data-game="${game.id}"]`)).toBeVisible();
   await page.getByRole('button', { name: /全部游戏/ }).click();
   await page.getByRole('searchbox', { name: '搜索游戏' }).fill('企鹅');
   await expect(page.locator('.game-card')).toHaveCount(1);

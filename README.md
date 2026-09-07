@@ -2,7 +2,7 @@
 
 把实物玩具变成免费在线游戏，保留熟悉的乐趣，也加入更丰富的玩法。游戏合集会持续更新。
 
-目前包含 **企鹅敲敲敲**、**小兔闯关** 和 **平衡太空人**，支持 2–4 人同屏游玩及电脑对手。大厅支持搜索、分类、收藏、最近玩过和随机游戏。
+目前包含 **企鹅敲敲敲**、**小兔闯关**、**平衡太空人** 和 **益智移车出库**。前三款支持 2–4 人同屏游玩及电脑对手，移车出库为单人逻辑闯关。大厅支持搜索、分类、收藏、最近玩过和随机游戏。
 
 ## 本地运行
 
@@ -26,6 +26,7 @@ games/
   penguin-ice/            # 企鹅敲敲敲，Three.js + cannon-es
   rabbit-trap/            # 小兔闯关，React + Three.js + boardgame.io
   balance-astronaut/      # 平衡太空人，Three.js + cannon-es
+  parking-escape/         # 益智移车出库，Three.js + boardgame.io
 packages/
   catalog/
     games.json           # 唯一的游戏登记表，大厅和构建脚本共同读取
@@ -46,6 +47,7 @@ package-lock.json        # 全仓库共用一份锁文件
 | 企鹅敲敲敲 | `/games/penguin-ice/` |
 | 小兔闯关 | `/games/rabbit-trap/` |
 | 平衡太空人 | `/games/balance-astronaut/` |
+| 益智移车出库 | `/games/parking-escape/` |
 
 浏览器记录保存在本机，不涉及账号或后端；原游戏的偏好和对局存储键保持原样。当前多人模式是同屏游戏。
 
@@ -80,7 +82,7 @@ npm run test:e2e
 
 `npm test` 运行目录校验及各游戏的规则和物理测试。运行 `test:e2e` 前先停止开发服务；它自动在 5173 启动生产预览，检查桌面和手机上的搜索、筛选、收藏、最近玩过、游戏跳转、嵌套资源、真实画布像素、游戏操作和 404。
 
-开发服务运行时可执行 `node tests/browser/dev-server.mjs`，验证重复启动复用、三款游戏的资源加载及各自热更新连接共用一个端口。
+开发服务运行时可执行 `node tests/browser/dev-server.mjs`，验证重复启动复用、全部登记游戏的资源加载及各自热更新连接共用一个端口。
 
 浏览器默认使用本机 Google Chrome。没有 Chrome 时执行 `npx playwright install chromium`，然后用 `PLAYWRIGHT_CHANNEL=chromium npm run test:e2e`。截图输出在 `artifacts/`，失败跟踪在 `test-results/`。
 

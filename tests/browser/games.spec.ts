@@ -5,6 +5,7 @@ for (const game of [
   { id: 'penguin-ice', title: '企鹅敲敲敲', canvas: '#scene canvas', control: '游戏设置', action: '向右旋转视角', close: '关闭设置', debug: '__iceGame' },
   { id: 'rabbit-trap', title: '小兔闯关', canvas: '.scene-host canvas', control: '游戏规则', action: '抽一张卡牌', close: '关闭', debug: '__rabbit' },
   { id: 'balance-astronaut', title: '平衡太空人', canvas: '#space-scene canvas', control: '游戏规则', action: '向右旋转视角', close: '关闭规则', debug: '__balance' },
+  { id: 'parking-escape', title: '益智移车出库', canvas: '#parking-scene canvas', control: '游戏规则', action: '向右旋转视角', close: '关闭规则', debug: '__parking' },
 ]) {
   test(`${game.id} loads its nested assets, renders a moving scene and returns to the library`, async ({ page }, info) => {
     const errors: string[] = [];
@@ -54,6 +55,26 @@ for (const game of [
       await page.getByRole('button', { name: '1 号停靠位', exact: true }).click();
       await expect(page.locator('#crew-count')).toHaveText('01');
       await expect(page.getByRole('button', { name: '放置太空人', exact: true })).toHaveCount(0);
+    }
+    if (game.id === 'parking-escape') {
+      await expect(page.locator('#move-count')).toHaveText('00');
+      if (await page.evaluate(() => document.fullscreenEnabled)) {
+        await page.getByRole('button', { name: '进入全屏' }).click();
+        await expect(page.getByRole('button', { name: '退出全屏' })).toHaveAttribute('data-tooltip', '退出全屏');
+        await page.getByRole('button', { name: '退出全屏' }).click();
+        await expect(page.getByRole('button', { name: '进入全屏' })).toHaveAttribute('aria-pressed', 'false');
+        await expect(page.locator('#move-count')).toHaveText('00');
+      }
+      await page.getByRole('button', { name: '提示', exact: true }).click();
+      await page.getByRole('button', { name: '执行提示这一步' }).click();
+      await expect(page.locator('#move-count')).toHaveText('01');
+      await page.getByRole('button', { name: '撤销一步' }).click();
+      await expect(page.locator('#move-count')).toHaveText('00');
+      await page.getByRole('button', { name: '重做一步' }).click();
+      await expect(page.locator('#move-count')).toHaveText('01');
+      await page.getByRole('button', { name: '新的一局' }).click();
+      await page.getByRole('button', { name: '继续这局' }).click();
+      await expect(page.locator('#move-count')).toHaveText('01');
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.screenshot({ path: `artifacts/${game.id}-${info.project.name}.png`, fullPage: true });
