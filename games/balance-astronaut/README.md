@@ -33,7 +33,7 @@ npm run test:e2e
 SITE_URL=http://localhost:5173/ npm run test:games
 ```
 
-统一开发服务只监听 5173，三款游戏与热更新共用该端口。详细浏览器验证使用 `GAME_URL=http://localhost:5173/games/balance-astronaut/ npm run test:browser --workspace games/balance-astronaut`，可用 `CHECK_WEBKIT=1` 加测 WebKit；首次需要 `npx playwright install webkit`。运行生产 `test:e2e` 前先停止开发服务，生产预览也使用 5173，验证后再启动开发服务。
+统一开发服务只监听 5173，所有登记游戏与热更新共用该端口。详细浏览器验证使用 `GAME_URL=http://localhost:5173/games/balance-astronaut/ npm run test:browser --workspace games/balance-astronaut`，可用 `CHECK_WEBKIT=1` 加测 WebKit；首次需要 `npx playwright install webkit`。运行生产 `test:e2e` 前先停止开发服务，生产预览也使用 5173，验证后再启动开发服务。
 
 开发环境的 `window.__balance` 提供规则状态和场景诊断；生产构建不暴露此接口。设备模拟不等同于真实 iPad 硬件测试。
 

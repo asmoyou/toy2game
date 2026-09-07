@@ -10,3 +10,17 @@ artifacts/
 .env.*
 !.env.example
 .wrangler/
+
+# Local credentials and unpublished working material.
+.npmrc
+.netrc
+*.pem
+*.key
+*.p12
+*.pfx
+/credentials*.json
+/secrets*.json
+/output/
+/玩具参考图/
+/待转换玩具/
+/docs/ip-review-*.md

@@ -4,14 +4,14 @@
 
 ## 启动
 
-需要 Node.js 22.18 或更新版本。
+需要 Node.js 22.18 或更新版本。以下命令均在仓库根目录执行。
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
-终端会显示 Local 和 Network 地址。电脑浏览器打开 Local 地址；iPad 与电脑连接同一 Wi-Fi，在 Safari 中打开 Network 地址。电脑需要保持运行，端口占用时以终端实际显示的地址为准。
+统一开发服务使用 `http://localhost:5173/`，本游戏入口为 `/games/penguin-ice/`。iPad 与电脑连接同一 Wi-Fi 后，在 Safari 中打开终端显示的 Network 地址。电脑需保持服务运行；端口被其他项目占用时会提示并退出，不自动增加端口。
 
 ## 玩法
 
@@ -38,8 +38,8 @@ npm run dev
 ```sh
 npm run build
 npm run preview
-npm test
-npm run test:balance
+npm test --workspace games/penguin-ice
+npm run test:balance --workspace games/penguin-ice
 ```
 
 `dist/` 可部署到静态网站服务。游戏模型和声音由代码生成；字体优先使用 Noto Sans SC，加载失败时自动使用系统中文字体。
@@ -47,9 +47,9 @@ npm run test:balance
 启动开发服务器后，运行浏览器验证：
 
 ```sh
-GAME_URL=http://localhost:5174 npm run test:browser
-GAME_URL=http://localhost:5174 CHECK_WEBKIT=1 npm run test:bots
-GAME_URL=http://localhost:5174 CHECK_WEBKIT=1 npm run test:experience
+GAME_URL=http://localhost:5173/games/penguin-ice/ npm run test:browser --workspace games/penguin-ice
+GAME_URL=http://localhost:5173/games/penguin-ice/ CHECK_WEBKIT=1 npm run test:bots --workspace games/penguin-ice
+GAME_URL=http://localhost:5173/games/penguin-ice/ CHECK_WEBKIT=1 npm run test:experience --workspace games/penguin-ice
 ```
 
 需要本机安装 Google Chrome。验证包含桌面、iPad 横竖屏、手机横竖屏的截图、画布像素检查、真实触摸、轮换、掉落判负、重开、设置和持久化。机器人测试另覆盖输入锁定、暂停、重开时取消计时、三个机器人连续出手与屏幕旋转。截图输出至 `test-results/`。

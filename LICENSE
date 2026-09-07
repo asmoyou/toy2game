@@ -1,0 +1,93 @@
+Toy2Game Noncommercial License 1.0
+
+Copyright (c) 2026 asmoyou
+Project: https://github.com/asmoyou/toy2game
+Licensor: asmoyou (https://github.com/asmoyou)
+
+This is a custom source-available license. It does not grant permission
+for commercial use without a separate written authorization.
+
+1. Scope
+
+"Software" means the original code, documentation, and assets in this
+repository for which the Licensor holds the rights being licensed.
+Third-party materials are excluded as described in section 5.
+
+2. Noncommercial Permission
+
+Subject to the conditions below, the Licensor grants you a worldwide,
+non-exclusive, royalty-free license to use, reproduce, study, modify,
+and distribute the Software, in source or compiled form, solely for
+noncommercial purposes.
+
+Noncommercial purposes are purposes that are not intended for or
+directed toward commercial advantage or monetary compensation. These
+may include personal learning, research without an anticipated
+commercial application, private entertainment, hobby projects, and
+noncommercial educational activities.
+
+3. Commercial Use Requires Prior Written Authorization
+
+You must obtain the Licensor's express written authorization before
+using the Software for any commercial purpose. Commercial use includes,
+without limitation:
+
+- Selling the Software or copies of it, charging for access, or offering
+  paid subscriptions to a service that uses the Software.
+- Monetizing a deployment through advertising, paid placements, or
+  commercial sponsorship.
+- Incorporating the Software into a commercial product or service,
+  including a free tier of a commercial offering.
+- Using the Software in paid client deliverables or providing paid
+  customization, hosting, or operation of the Software.
+- Using the Software as part of internal business operations or other
+  activities directed toward commercial advantage.
+
+An activity does not become noncommercial merely because users are not
+charged, it has not yet made a profit, or it is conducted by a nonprofit
+or educational organization. The purpose of the activity determines
+whether authorization is required.
+
+Request authorization from asmoyou through the project repository or
+GitHub profile listed above. Authorization is effective only when
+expressly granted in writing, and only within its stated scope. A
+request, silence, or access to the public repository is not authorization.
+
+4. Conditions for Copying, Modification, and Distribution
+
+When distributing the Software or works containing it, you must:
+
+- Retain the copyright notice, a complete copy of this license, and
+  applicable third-party notices.
+- Identify modifications you made, and not present a modified version
+  as an official release of the original project.
+- Preserve these restrictions for the portions of the Software covered
+  by this license. You may not grant others broader rights in those
+  portions than you have received.
+
+Recipients may exercise the permissions granted by this license directly
+from the Licensor, subject to these same conditions. Modifying, bundling,
+or compiling the Software does not remove the commercial-use restriction.
+
+5. Third-Party Rights
+
+Dependencies, fonts, reference materials, and other third-party content
+remain subject to their respective licenses and rights. This license
+does not replace those terms or grant rights the Licensor does not hold.
+Any separate commercial authorization is likewise limited to rights the
+authorizing party can grant. No trademark or endorsement rights are granted.
+
+6. Disclaimer
+
+TO THE EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. THE LICENSOR
+WILL NOT BE LIABLE FOR DAMAGES ARISING FROM USE OF THE SOFTWARE.
+
+7. Termination and Reserved Rights
+
+Your permissions under this license terminate if you fail to comply with
+its conditions. Reinstatement requires the Licensor's written agreement.
+Termination does not terminate the permissions of recipients who remain
+in compliance with this license. All rights not expressly granted are
+reserved. Nothing in this license limits rights that applicable law
+grants independently of this license.

@@ -1,0 +1,11 @@
+title = "Toy2Game secret scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Public localStorage key used for parking puzzle saves."
+condition = "AND"
+paths = ['''(^|/)games/parking-escape/src/storage\.ts$''']
+regexTarget = "secret"
+regexes = ['''^parking-escape-save-v1$''']
