@@ -42,7 +42,7 @@ async function snapshot(page) {
   return page.evaluate(() => {
     const debug = window.__parking;
     return {
-      game: JSON.parse(localStorage.getItem('parking-escape-save-v1')).game,
+      game: JSON.parse(localStorage.getItem('parking-escape-save-v2')).game,
       camera: debug ? { position: debug.scene.camera.position.toArray(), quaternion: debug.scene.camera.quaternion.toArray(), zoom: debug.scene.camera.zoom } : null,
     };
   });

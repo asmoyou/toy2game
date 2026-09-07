@@ -314,1795 +314,6 @@
   },
   {
     "id": 5,
-    "name": "各退一步",
-    "difficulty": 0,
-    "minimum": 5,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "z",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "D",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "x",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "K",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      }
-    ],
-    "positions": [
-      1,
-      1,
-      1,
-      2,
-      0,
-      3,
-      4,
-      1,
-      3,
-      2,
-      0
-    ]
-  },
-  {
-    "id": 6,
-    "name": "小小调度",
-    "difficulty": 0,
-    "minimum": 5,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 3,
-        "size": 3
-      },
-      {
-        "id": "D",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "z",
-        "lane": 2,
-        "size": 3
-      },
-      {
-        "id": "A",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      }
-    ],
-    "positions": [
-      0,
-      2,
-      1,
-      4,
-      2,
-      2,
-      1,
-      4,
-      0,
-      0
-    ]
-  },
-  {
-    "id": 7,
-    "name": "转角之间",
-    "difficulty": 1,
-    "minimum": 7,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "A",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "F",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "x",
-        "lane": 4,
-        "size": 3
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      }
-    ],
-    "positions": [
-      1,
-      3,
-      1,
-      3,
-      2,
-      1,
-      0,
-      3,
-      1,
-      1
-    ]
-  },
-  {
-    "id": 8,
-    "name": "礼让通行",
-    "difficulty": 1,
-    "minimum": 7,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "x",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "L",
-        "axis": "z",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "M",
-        "axis": "x",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      }
-    ],
-    "positions": [
-      2,
-      0,
-      2,
-      4,
-      1,
-      1,
-      0,
-      3,
-      1,
-      0,
-      3,
-      4,
-      3
-    ]
-  },
-  {
-    "id": 9,
-    "name": "迂回有道",
-    "difficulty": 1,
-    "minimum": 7,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 1,
-        "size": 3
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "D",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "z",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "F",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "x",
-        "lane": 1,
-        "size": 3
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "x",
-        "lane": 3,
-        "size": 3
-      },
-      {
-        "id": "J",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      }
-    ],
-    "positions": [
-      2,
-      3,
-      2,
-      2,
-      4,
-      0,
-      4,
-      1,
-      3,
-      1,
-      2,
-      1
-    ]
-  },
-  {
-    "id": 10,
-    "name": "车位交换",
-    "difficulty": 1,
-    "minimum": 8,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 1,
-        "size": 3
-      },
-      {
-        "id": "D",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "A",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      }
-    ],
-    "positions": [
-      0,
-      1,
-      3,
-      3,
-      1,
-      4,
-      0,
-      1,
-      4,
-      3,
-      3
-    ]
-  },
-  {
-    "id": 11,
-    "name": "忙里有序",
-    "difficulty": 1,
-    "minimum": 8,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 1,
-        "size": 3
-      },
-      {
-        "id": "K",
-        "axis": "x",
-        "lane": 4,
-        "size": 3
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "A",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "x",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      }
-    ],
-    "positions": [
-      2,
-      2,
-      3,
-      1,
-      0,
-      0,
-      4,
-      4,
-      1,
-      4,
-      1,
-      2
-    ]
-  },
-  {
-    "id": 12,
-    "name": "恰到好处",
-    "difficulty": 1,
-    "minimum": 9,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "x",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "D",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "x",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "A",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      }
-    ],
-    "positions": [
-      1,
-      3,
-      1,
-      0,
-      3,
-      1,
-      3,
-      1,
-      2,
-      2,
-      4,
-      2
-    ]
-  },
-  {
-    "id": 13,
-    "name": "环环相扣",
-    "difficulty": 2,
-    "minimum": 12,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "M",
-        "axis": "x",
-        "lane": 3,
-        "size": 3
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "A",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      }
-    ],
-    "positions": [
-      1,
-      0,
-      4,
-      1,
-      1,
-      1,
-      1,
-      2,
-      0,
-      2,
-      0,
-      4
-    ]
-  },
-  {
-    "id": 14,
-    "name": "腾挪空间",
-    "difficulty": 2,
-    "minimum": 12,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "A",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 4,
-        "size": 3
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "x",
-        "lane": 3,
-        "size": 3
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      }
-    ],
-    "positions": [
-      1,
-      4,
-      3,
-      3,
-      2,
-      2,
-      0,
-      0,
-      0,
-      0
-    ]
-  },
-  {
-    "id": 15,
-    "name": "进退之间",
-    "difficulty": 2,
-    "minimum": 14,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "D",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "z",
-        "lane": 3,
-        "size": 3
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 2,
-        "size": 3
-      },
-      {
-        "id": "A",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "H",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      }
-    ],
-    "positions": [
-      0,
-      1,
-      3,
-      0,
-      2,
-      0,
-      1,
-      3,
-      1
-    ]
-  },
-  {
-    "id": 16,
-    "name": "穿行街区",
-    "difficulty": 2,
-    "minimum": 15,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "A",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "E",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "D",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "z",
-        "lane": 4,
-        "size": 3
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 3,
-        "size": 3
-      }
-    ],
-    "positions": [
-      1,
-      1,
-      0,
-      3,
-      0,
-      4,
-      3,
-      3,
-      3,
-      4,
-      0,
-      0
-    ]
-  },
-  {
-    "id": 17,
-    "name": "静心调度",
-    "difficulty": 2,
-    "minimum": 15,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "J",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 4,
-        "size": 3
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "x",
-        "lane": 1,
-        "size": 3
-      },
-      {
-        "id": "A",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      }
-    ],
-    "positions": [
-      0,
-      2,
-      2,
-      2,
-      4,
-      2,
-      3,
-      1,
-      3,
-      0,
-      1,
-      0,
-      4
-    ]
-  },
-  {
-    "id": 18,
-    "name": "柳暗花明",
-    "difficulty": 2,
-    "minimum": 16,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "D",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "L",
-        "axis": "z",
-        "lane": 2,
-        "size": 3
-      },
-      {
-        "id": "J",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "I",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      }
-    ],
-    "positions": [
-      0,
-      0,
-      1,
-      4,
-      1,
-      0,
-      1,
-      2,
-      1,
-      0,
-      3,
-      3
-    ]
-  },
-  {
-    "id": 19,
-    "name": "拥挤时刻",
-    "difficulty": 3,
-    "minimum": 17,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "x",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "A",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "x",
-        "lane": 1,
-        "size": 3
-      }
-    ],
-    "positions": [
-      1,
-      3,
-      1,
-      0,
-      3,
-      3,
-      3,
-      1,
-      3,
-      2,
-      1,
-      1
-    ]
-  },
-  {
-    "id": 20,
-    "name": "城市迷局",
-    "difficulty": 3,
-    "minimum": 18,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "x",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "D",
-        "axis": "x",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      }
-    ],
-    "positions": [
-      0,
-      0,
-      2,
-      3,
-      4,
-      1,
-      1,
-      2,
-      1,
-      3,
-      1,
-      0,
-      3
-    ]
-  },
-  {
-    "id": 21,
-    "name": "步步为营",
-    "difficulty": 3,
-    "minimum": 18,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "M",
-        "axis": "z",
-        "lane": 3,
-        "size": 3
-      },
-      {
-        "id": "A",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 4,
-        "size": 3
-      }
-    ],
-    "positions": [
-      1,
-      4,
-      3,
-      1,
-      1,
-      0,
-      1,
-      3,
-      2
-    ]
-  },
-  {
-    "id": 22,
-    "name": "解开连环",
-    "difficulty": 3,
-    "minimum": 18,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "z",
-        "lane": 2,
-        "size": 3
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "N",
-        "axis": "z",
-        "lane": 4,
-        "size": 3
-      }
-    ],
-    "positions": [
-      0,
-      1,
-      4,
-      2,
-      2,
-      3,
-      0,
-      2,
-      2
-    ]
-  },
-  {
-    "id": 23,
-    "name": "最后一格",
-    "difficulty": 3,
-    "minimum": 18,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "A",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "H",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 2,
-        "size": 3
-      },
-      {
-        "id": "G",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "D",
-        "axis": "x",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "I",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      }
-    ],
-    "positions": [
-      0,
-      2,
-      4,
-      2,
-      3,
-      4,
-      1,
-      3,
-      1,
-      1,
-      1,
-      1
-    ]
-  },
-  {
-    "id": 24,
-    "name": "出库大师",
-    "difficulty": 3,
-    "minimum": 25,
-    "cars": [
-      {
-        "id": "X",
-        "axis": "x",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "K",
-        "axis": "z",
-        "lane": 4,
-        "size": 3
-      },
-      {
-        "id": "D",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "J",
-        "axis": "z",
-        "lane": 0,
-        "size": 2
-      },
-      {
-        "id": "F",
-        "axis": "x",
-        "lane": 5,
-        "size": 2
-      },
-      {
-        "id": "B",
-        "axis": "x",
-        "lane": 3,
-        "size": 2
-      },
-      {
-        "id": "L",
-        "axis": "z",
-        "lane": 5,
-        "size": 3
-      },
-      {
-        "id": "I",
-        "axis": "x",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "M",
-        "axis": "x",
-        "lane": 0,
-        "size": 3
-      },
-      {
-        "id": "A",
-        "axis": "z",
-        "lane": 1,
-        "size": 2
-      },
-      {
-        "id": "C",
-        "axis": "z",
-        "lane": 2,
-        "size": 2
-      },
-      {
-        "id": "G",
-        "axis": "x",
-        "lane": 4,
-        "size": 2
-      },
-      {
-        "id": "E",
-        "axis": "z",
-        "lane": 3,
-        "size": 2
-      }
-    ],
-    "positions": [
-      0,
-      0,
-      2,
-      3,
-      4,
-      3,
-      2,
-      1,
-      1,
-      4,
-      2,
-      2,
-      1
-    ]
-  },
-  {
-    "id": 25,
     "name": "晨光小巷",
     "difficulty": 0,
     "minimum": 4,
@@ -2182,7 +393,7 @@
     ]
   },
   {
-    "id": 26,
+    "id": 6,
     "name": "早餐街口",
     "difficulty": 0,
     "minimum": 4,
@@ -2276,7 +487,7 @@
     ]
   },
   {
-    "id": 27,
+    "id": 7,
     "name": "邻里让行",
     "difficulty": 0,
     "minimum": 4,
@@ -2342,7 +553,7 @@
     ]
   },
   {
-    "id": 28,
+    "id": 8,
     "name": "树荫车位",
     "difficulty": 0,
     "minimum": 4,
@@ -2408,7 +619,7 @@
     ]
   },
   {
-    "id": 29,
+    "id": 9,
     "name": "午后出游",
     "difficulty": 0,
     "minimum": 4,
@@ -2495,7 +706,7 @@
     ]
   },
   {
-    "id": 30,
+    "id": 10,
     "name": "周末集市",
     "difficulty": 0,
     "minimum": 4,
@@ -2575,7 +786,7 @@
     ]
   },
   {
-    "id": 31,
+    "id": 11,
     "name": "公园门前",
     "difficulty": 0,
     "minimum": 4,
@@ -2641,7 +852,7 @@
     ]
   },
   {
-    "id": 32,
+    "id": 12,
     "name": "放学路上",
     "difficulty": 0,
     "minimum": 4,
@@ -2735,7 +946,174 @@
     ]
   },
   {
-    "id": 33,
+    "id": 13,
+    "name": "各退一步",
+    "difficulty": 0,
+    "minimum": 5,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "z",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "D",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "x",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "K",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      }
+    ],
+    "positions": [
+      1,
+      1,
+      1,
+      2,
+      0,
+      3,
+      4,
+      1,
+      3,
+      2,
+      0
+    ]
+  },
+  {
+    "id": 14,
+    "name": "小小调度",
+    "difficulty": 0,
+    "minimum": 5,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 3,
+        "size": 3
+      },
+      {
+        "id": "D",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "z",
+        "lane": 2,
+        "size": 3
+      },
+      {
+        "id": "A",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      }
+    ],
+    "positions": [
+      0,
+      2,
+      1,
+      4,
+      2,
+      2,
+      1,
+      4,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 15,
     "name": "雨后街道",
     "difficulty": 0,
     "minimum": 5,
@@ -2822,7 +1200,7 @@
     ]
   },
   {
-    "id": 34,
+    "id": 16,
     "name": "晚风归途",
     "difficulty": 0,
     "minimum": 5,
@@ -2895,7 +1273,7 @@
     ]
   },
   {
-    "id": 35,
+    "id": 17,
     "name": "花店转角",
     "difficulty": 0,
     "minimum": 5,
@@ -2989,7 +1367,7 @@
     ]
   },
   {
-    "id": 36,
+    "id": 18,
     "name": "河畔停车",
     "difficulty": 0,
     "minimum": 5,
@@ -3076,7 +1454,7 @@
     ]
   },
   {
-    "id": 37,
+    "id": 19,
     "name": "书店相遇",
     "difficulty": 0,
     "minimum": 5,
@@ -3170,7 +1548,7 @@
     ]
   },
   {
-    "id": 38,
+    "id": 20,
     "name": "操场旁边",
     "difficulty": 0,
     "minimum": 5,
@@ -3236,7 +1614,7 @@
     ]
   },
   {
-    "id": 39,
+    "id": 21,
     "name": "面包飘香",
     "difficulty": 0,
     "minimum": 5,
@@ -3309,7 +1687,7 @@
     ]
   },
   {
-    "id": 40,
+    "id": 22,
     "name": "小桥借位",
     "difficulty": 0,
     "minimum": 5,
@@ -3382,7 +1760,7 @@
     ]
   },
   {
-    "id": 41,
+    "id": 23,
     "name": "林间驿站",
     "difficulty": 0,
     "minimum": 6,
@@ -3462,7 +1840,7 @@
     ]
   },
   {
-    "id": 42,
+    "id": 24,
     "name": "海边出发",
     "difficulty": 0,
     "minimum": 6,
@@ -3549,7 +1927,7 @@
     ]
   },
   {
-    "id": 43,
+    "id": 25,
     "name": "街坊互助",
     "difficulty": 0,
     "minimum": 6,
@@ -3615,7 +1993,7 @@
     ]
   },
   {
-    "id": 44,
+    "id": 26,
     "name": "顺路同行",
     "difficulty": 0,
     "minimum": 6,
@@ -3695,7 +2073,7 @@
     ]
   },
   {
-    "id": 45,
+    "id": 27,
     "name": "留点空间",
     "difficulty": 0,
     "minimum": 6,
@@ -3782,7 +2160,7 @@
     ]
   },
   {
-    "id": 46,
+    "id": 28,
     "name": "轻松换位",
     "difficulty": 0,
     "minimum": 6,
@@ -3855,7 +2233,7 @@
     ]
   },
   {
-    "id": 47,
+    "id": 29,
     "name": "慢慢来吧",
     "difficulty": 0,
     "minimum": 6,
@@ -3956,7 +2334,7 @@
     ]
   },
   {
-    "id": 48,
+    "id": 30,
     "name": "一路畅通",
     "difficulty": 0,
     "minimum": 6,
@@ -4057,7 +2435,282 @@
     ]
   },
   {
-    "id": 49,
+    "id": 31,
+    "name": "转角之间",
+    "difficulty": 1,
+    "minimum": 7,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "A",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "F",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "x",
+        "lane": 4,
+        "size": 3
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      }
+    ],
+    "positions": [
+      1,
+      3,
+      1,
+      3,
+      2,
+      1,
+      0,
+      3,
+      1,
+      1
+    ]
+  },
+  {
+    "id": 32,
+    "name": "礼让通行",
+    "difficulty": 1,
+    "minimum": 7,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "x",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "L",
+        "axis": "z",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "M",
+        "axis": "x",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      }
+    ],
+    "positions": [
+      2,
+      0,
+      2,
+      4,
+      1,
+      1,
+      0,
+      3,
+      1,
+      0,
+      3,
+      4,
+      3
+    ]
+  },
+  {
+    "id": 33,
+    "name": "迂回有道",
+    "difficulty": 1,
+    "minimum": 7,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 1,
+        "size": 3
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "D",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "z",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "F",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "x",
+        "lane": 1,
+        "size": 3
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "x",
+        "lane": 3,
+        "size": 3
+      },
+      {
+        "id": "J",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      }
+    ],
+    "positions": [
+      2,
+      3,
+      2,
+      2,
+      4,
+      0,
+      4,
+      1,
+      3,
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "id": 34,
     "name": "双向礼让",
     "difficulty": 1,
     "minimum": 7,
@@ -4144,7 +2797,7 @@
     ]
   },
   {
-    "id": 50,
+    "id": 35,
     "name": "前后照应",
     "difficulty": 1,
     "minimum": 7,
@@ -4217,7 +2870,7 @@
     ]
   },
   {
-    "id": 51,
+    "id": 36,
     "name": "错位通行",
     "difficulty": 1,
     "minimum": 7,
@@ -4311,7 +2964,7 @@
     ]
   },
   {
-    "id": 52,
+    "id": 37,
     "name": "借道而行",
     "difficulty": 1,
     "minimum": 7,
@@ -4398,7 +3051,7 @@
     ]
   },
   {
-    "id": 53,
+    "id": 38,
     "name": "街区穿梭",
     "difficulty": 1,
     "minimum": 7,
@@ -4485,7 +3138,7 @@
     ]
   },
   {
-    "id": 54,
+    "id": 39,
     "name": "临时停靠",
     "difficulty": 1,
     "minimum": 7,
@@ -4586,7 +3239,188 @@
     ]
   },
   {
-    "id": 55,
+    "id": 40,
+    "name": "车位交换",
+    "difficulty": 1,
+    "minimum": 8,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 1,
+        "size": 3
+      },
+      {
+        "id": "D",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "A",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      }
+    ],
+    "positions": [
+      0,
+      1,
+      3,
+      3,
+      1,
+      4,
+      0,
+      1,
+      4,
+      3,
+      3
+    ]
+  },
+  {
+    "id": 41,
+    "name": "忙里有序",
+    "difficulty": 1,
+    "minimum": 8,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 1,
+        "size": 3
+      },
+      {
+        "id": "K",
+        "axis": "x",
+        "lane": 4,
+        "size": 3
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "A",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "x",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      }
+    ],
+    "positions": [
+      2,
+      2,
+      3,
+      1,
+      0,
+      0,
+      4,
+      4,
+      1,
+      4,
+      1,
+      2
+    ]
+  },
+  {
+    "id": 42,
     "name": "来回调度",
     "difficulty": 1,
     "minimum": 8,
@@ -4680,7 +3514,7 @@
     ]
   },
   {
-    "id": 56,
+    "id": 43,
     "name": "横街纵巷",
     "difficulty": 1,
     "minimum": 8,
@@ -4753,7 +3587,7 @@
     ]
   },
   {
-    "id": 57,
+    "id": 44,
     "name": "先退后进",
     "difficulty": 1,
     "minimum": 8,
@@ -4854,7 +3688,7 @@
     ]
   },
   {
-    "id": 58,
+    "id": 45,
     "name": "找个空当",
     "difficulty": 1,
     "minimum": 8,
@@ -4941,7 +3775,7 @@
     ]
   },
   {
-    "id": 59,
+    "id": 46,
     "name": "轮流借位",
     "difficulty": 1,
     "minimum": 8,
@@ -5028,7 +3862,7 @@
     ]
   },
   {
-    "id": 60,
+    "id": 47,
     "name": "小城早高峰",
     "difficulty": 1,
     "minimum": 8,
@@ -5115,7 +3949,101 @@
     ]
   },
   {
-    "id": 61,
+    "id": 48,
+    "name": "恰到好处",
+    "difficulty": 1,
+    "minimum": 9,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "x",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "D",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "x",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "A",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      }
+    ],
+    "positions": [
+      1,
+      3,
+      1,
+      0,
+      3,
+      1,
+      3,
+      1,
+      2,
+      2,
+      4,
+      2
+    ]
+  },
+  {
+    "id": 49,
     "name": "三车相逢",
     "difficulty": 1,
     "minimum": 9,
@@ -5216,7 +4144,7 @@
     ]
   },
   {
-    "id": 62,
+    "id": 50,
     "name": "空位接力",
     "difficulty": 1,
     "minimum": 9,
@@ -5303,7 +4231,7 @@
     ]
   },
   {
-    "id": 63,
+    "id": 51,
     "name": "车流交汇",
     "difficulty": 1,
     "minimum": 9,
@@ -5390,7 +4318,7 @@
     ]
   },
   {
-    "id": 64,
+    "id": 52,
     "name": "出口在望",
     "difficulty": 1,
     "minimum": 9,
@@ -5470,7 +4398,7 @@
     ]
   },
   {
-    "id": 65,
+    "id": 53,
     "name": "排队等候",
     "difficulty": 1,
     "minimum": 9,
@@ -5557,7 +4485,7 @@
     ]
   },
   {
-    "id": 66,
+    "id": 54,
     "name": "等待时机",
     "difficulty": 1,
     "minimum": 9,
@@ -5644,7 +4572,7 @@
     ]
   },
   {
-    "id": 67,
+    "id": 55,
     "name": "顺藤摸瓜",
     "difficulty": 1,
     "minimum": 10,
@@ -5717,7 +4645,7 @@
     ]
   },
   {
-    "id": 68,
+    "id": 56,
     "name": "盘活车位",
     "difficulty": 1,
     "minimum": 10,
@@ -5797,7 +4725,7 @@
     ]
   },
   {
-    "id": 69,
+    "id": 57,
     "name": "穿针引线",
     "difficulty": 1,
     "minimum": 10,
@@ -5898,7 +4826,7 @@
     ]
   },
   {
-    "id": 70,
+    "id": 58,
     "name": "留好退路",
     "difficulty": 1,
     "minimum": 10,
@@ -5999,7 +4927,7 @@
     ]
   },
   {
-    "id": 71,
+    "id": 59,
     "name": "稳步向前",
     "difficulty": 1,
     "minimum": 10,
@@ -6079,7 +5007,7 @@
     ]
   },
   {
-    "id": 72,
+    "id": 60,
     "name": "有序出发",
     "difficulty": 1,
     "minimum": 10,
@@ -6159,7 +5087,7 @@
     ]
   },
   {
-    "id": 73,
+    "id": 61,
     "name": "交错车阵",
     "difficulty": 2,
     "minimum": 11,
@@ -6232,7 +5160,7 @@
     ]
   },
   {
-    "id": 74,
+    "id": 62,
     "name": "连锁让行",
     "difficulty": 2,
     "minimum": 11,
@@ -6312,7 +5240,7 @@
     ]
   },
   {
-    "id": 75,
+    "id": 63,
     "name": "一退两进",
     "difficulty": 2,
     "minimum": 11,
@@ -6406,7 +5334,7 @@
     ]
   },
   {
-    "id": 76,
+    "id": 64,
     "name": "左右逢源",
     "difficulty": 2,
     "minimum": 11,
@@ -6493,7 +5421,181 @@
     ]
   },
   {
-    "id": 77,
+    "id": 65,
+    "name": "环环相扣",
+    "difficulty": 2,
+    "minimum": 12,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "M",
+        "axis": "x",
+        "lane": 3,
+        "size": 3
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "A",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      }
+    ],
+    "positions": [
+      1,
+      0,
+      4,
+      1,
+      1,
+      1,
+      1,
+      2,
+      0,
+      2,
+      0,
+      4
+    ]
+  },
+  {
+    "id": 66,
+    "name": "腾挪空间",
+    "difficulty": 2,
+    "minimum": 12,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "A",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 4,
+        "size": 3
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "x",
+        "lane": 3,
+        "size": 3
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      }
+    ],
+    "positions": [
+      1,
+      4,
+      3,
+      3,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 67,
     "name": "见缝插针",
     "difficulty": 2,
     "minimum": 12,
@@ -6594,7 +5696,7 @@
     ]
   },
   {
-    "id": 78,
+    "id": 68,
     "name": "多走一步",
     "difficulty": 2,
     "minimum": 12,
@@ -6688,7 +5790,7 @@
     ]
   },
   {
-    "id": 79,
+    "id": 69,
     "name": "街巷回环",
     "difficulty": 2,
     "minimum": 12,
@@ -6789,7 +5891,7 @@
     ]
   },
   {
-    "id": 80,
+    "id": 70,
     "name": "步步相让",
     "difficulty": 2,
     "minimum": 12,
@@ -6883,7 +5985,7 @@
     ]
   },
   {
-    "id": 81,
+    "id": 71,
     "name": "拥堵疏导",
     "difficulty": 2,
     "minimum": 13,
@@ -6970,7 +6072,7 @@
     ]
   },
   {
-    "id": 82,
+    "id": 72,
     "name": "巧借长车",
     "difficulty": 2,
     "minimum": 13,
@@ -7057,7 +6159,7 @@
     ]
   },
   {
-    "id": 83,
+    "id": 73,
     "name": "长短相济",
     "difficulty": 2,
     "minimum": 13,
@@ -7137,7 +6239,7 @@
     ]
   },
   {
-    "id": 84,
+    "id": 74,
     "name": "转圜余地",
     "difficulty": 2,
     "minimum": 13,
@@ -7217,7 +6319,80 @@
     ]
   },
   {
-    "id": 85,
+    "id": 75,
+    "name": "进退之间",
+    "difficulty": 2,
+    "minimum": 14,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "D",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "z",
+        "lane": 3,
+        "size": 3
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 2,
+        "size": 3
+      },
+      {
+        "id": "A",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "H",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      }
+    ],
+    "positions": [
+      0,
+      1,
+      3,
+      0,
+      2,
+      0,
+      1,
+      3,
+      1
+    ]
+  },
+  {
+    "id": 76,
     "name": "解开车结",
     "difficulty": 2,
     "minimum": 14,
@@ -7311,7 +6486,7 @@
     ]
   },
   {
-    "id": 86,
+    "id": 77,
     "name": "逆向思考",
     "difficulty": 2,
     "minimum": 14,
@@ -7398,7 +6573,7 @@
     ]
   },
   {
-    "id": 87,
+    "id": 78,
     "name": "腾出通道",
     "difficulty": 2,
     "minimum": 14,
@@ -7485,7 +6660,7 @@
     ]
   },
   {
-    "id": 88,
+    "id": 79,
     "name": "迂回穿行",
     "difficulty": 2,
     "minimum": 14,
@@ -7572,7 +6747,202 @@
     ]
   },
   {
-    "id": 89,
+    "id": 80,
+    "name": "穿行街区",
+    "difficulty": 2,
+    "minimum": 15,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "A",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "E",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "D",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "z",
+        "lane": 4,
+        "size": 3
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 3,
+        "size": 3
+      }
+    ],
+    "positions": [
+      1,
+      1,
+      0,
+      3,
+      0,
+      4,
+      3,
+      3,
+      3,
+      4,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 81,
+    "name": "静心调度",
+    "difficulty": 2,
+    "minimum": 15,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "J",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 4,
+        "size": 3
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "x",
+        "lane": 1,
+        "size": 3
+      },
+      {
+        "id": "A",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      }
+    ],
+    "positions": [
+      0,
+      2,
+      2,
+      2,
+      4,
+      2,
+      3,
+      1,
+      3,
+      0,
+      1,
+      0,
+      4
+    ]
+  },
+  {
+    "id": 82,
     "name": "连环借位",
     "difficulty": 2,
     "minimum": 15,
@@ -7659,7 +7029,7 @@
     ]
   },
   {
-    "id": 90,
+    "id": 83,
     "name": "通路重组",
     "difficulty": 2,
     "minimum": 15,
@@ -7746,7 +7116,7 @@
     ]
   },
   {
-    "id": 91,
+    "id": 84,
     "name": "进退有方",
     "difficulty": 2,
     "minimum": 15,
@@ -7833,7 +7203,7 @@
     ]
   },
   {
-    "id": 92,
+    "id": 85,
     "name": "调度考验",
     "difficulty": 2,
     "minimum": 15,
@@ -7913,7 +7283,101 @@
     ]
   },
   {
-    "id": 93,
+    "id": 86,
+    "name": "柳暗花明",
+    "difficulty": 2,
+    "minimum": 16,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "D",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "L",
+        "axis": "z",
+        "lane": 2,
+        "size": 3
+      },
+      {
+        "id": "J",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "I",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      }
+    ],
+    "positions": [
+      0,
+      0,
+      1,
+      4,
+      1,
+      0,
+      1,
+      2,
+      1,
+      0,
+      3,
+      3
+    ]
+  },
+  {
+    "id": 87,
     "name": "曲径通幽",
     "difficulty": 2,
     "minimum": 16,
@@ -8000,7 +7464,7 @@
     ]
   },
   {
-    "id": 94,
+    "id": 88,
     "name": "环城车流",
     "difficulty": 2,
     "minimum": 16,
@@ -8101,7 +7565,7 @@
     ]
   },
   {
-    "id": 95,
+    "id": 89,
     "name": "层层让路",
     "difficulty": 2,
     "minimum": 16,
@@ -8188,7 +7652,7 @@
     ]
   },
   {
-    "id": 96,
+    "id": 90,
     "name": "突破重围",
     "difficulty": 2,
     "minimum": 16,
@@ -8275,7 +7739,101 @@
     ]
   },
   {
-    "id": 97,
+    "id": 91,
+    "name": "拥挤时刻",
+    "difficulty": 3,
+    "minimum": 17,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "x",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "A",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "x",
+        "lane": 1,
+        "size": 3
+      }
+    ],
+    "positions": [
+      1,
+      3,
+      1,
+      0,
+      3,
+      3,
+      3,
+      1,
+      3,
+      2,
+      1,
+      1
+    ]
+  },
+  {
+    "id": 92,
     "name": "密集车阵",
     "difficulty": 3,
     "minimum": 17,
@@ -8362,7 +7920,7 @@
     ]
   },
   {
-    "id": 98,
+    "id": 93,
     "name": "多重借道",
     "difficulty": 3,
     "minimum": 17,
@@ -8456,7 +8014,7 @@
     ]
   },
   {
-    "id": 99,
+    "id": 94,
     "name": "深巷回声",
     "difficulty": 3,
     "minimum": 17,
@@ -8557,7 +8115,7 @@
     ]
   },
   {
-    "id": 100,
+    "id": 95,
     "name": "错综有序",
     "difficulty": 3,
     "minimum": 17,
@@ -8630,7 +8188,7 @@
     ]
   },
   {
-    "id": 101,
+    "id": 96,
     "name": "层层解锁",
     "difficulty": 3,
     "minimum": 17,
@@ -8731,7 +8289,7 @@
     ]
   },
   {
-    "id": 102,
+    "id": 97,
     "name": "狭路相让",
     "difficulty": 3,
     "minimum": 17,
@@ -8818,7 +8376,348 @@
     ]
   },
   {
-    "id": 103,
+    "id": 98,
+    "name": "城市迷局",
+    "difficulty": 3,
+    "minimum": 18,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "x",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "D",
+        "axis": "x",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      }
+    ],
+    "positions": [
+      0,
+      0,
+      2,
+      3,
+      4,
+      1,
+      1,
+      2,
+      1,
+      3,
+      1,
+      0,
+      3
+    ]
+  },
+  {
+    "id": 99,
+    "name": "步步为营",
+    "difficulty": 3,
+    "minimum": 18,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "M",
+        "axis": "z",
+        "lane": 3,
+        "size": 3
+      },
+      {
+        "id": "A",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 4,
+        "size": 3
+      }
+    ],
+    "positions": [
+      1,
+      4,
+      3,
+      1,
+      1,
+      0,
+      1,
+      3,
+      2
+    ]
+  },
+  {
+    "id": 100,
+    "name": "解开连环",
+    "difficulty": 3,
+    "minimum": 18,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "z",
+        "lane": 2,
+        "size": 3
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "N",
+        "axis": "z",
+        "lane": 4,
+        "size": 3
+      }
+    ],
+    "positions": [
+      0,
+      1,
+      4,
+      2,
+      2,
+      3,
+      0,
+      2,
+      2
+    ]
+  },
+  {
+    "id": 101,
+    "name": "最后一格",
+    "difficulty": 3,
+    "minimum": 18,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "A",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "H",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 2,
+        "size": 3
+      },
+      {
+        "id": "G",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "D",
+        "axis": "x",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "I",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      }
+    ],
+    "positions": [
+      0,
+      2,
+      4,
+      2,
+      3,
+      4,
+      1,
+      3,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "id": 102,
     "name": "长车迷阵",
     "difficulty": 3,
     "minimum": 18,
@@ -8905,7 +8804,7 @@
     ]
   },
   {
-    "id": 104,
+    "id": 103,
     "name": "环线调度",
     "difficulty": 3,
     "minimum": 19,
@@ -9006,7 +8905,7 @@
     ]
   },
   {
-    "id": 105,
+    "id": 104,
     "name": "静候空位",
     "difficulty": 3,
     "minimum": 20,
@@ -9079,7 +8978,7 @@
     ]
   },
   {
-    "id": 106,
+    "id": 105,
     "name": "全盘统筹",
     "difficulty": 3,
     "minimum": 20,
@@ -9159,7 +9058,7 @@
     ]
   },
   {
-    "id": 107,
+    "id": 106,
     "name": "往返之间",
     "difficulty": 3,
     "minimum": 21,
@@ -9225,7 +9124,7 @@
     ]
   },
   {
-    "id": 108,
+    "id": 107,
     "name": "多步筹谋",
     "difficulty": 3,
     "minimum": 21,
@@ -9298,7 +9197,7 @@
     ]
   },
   {
-    "id": 109,
+    "id": 108,
     "name": "抽丝剥茧",
     "difficulty": 3,
     "minimum": 21,
@@ -9399,7 +9298,7 @@
     ]
   },
   {
-    "id": 110,
+    "id": 109,
     "name": "车阵深处",
     "difficulty": 3,
     "minimum": 22,
@@ -9486,7 +9385,7 @@
     ]
   },
   {
-    "id": 111,
+    "id": 110,
     "name": "峰回路转",
     "difficulty": 3,
     "minimum": 22,
@@ -9559,7 +9458,7 @@
     ]
   },
   {
-    "id": 112,
+    "id": 111,
     "name": "寸格必争",
     "difficulty": 3,
     "minimum": 22,
@@ -9660,7 +9559,7 @@
     ]
   },
   {
-    "id": 113,
+    "id": 112,
     "name": "重重关卡",
     "difficulty": 3,
     "minimum": 23,
@@ -9761,7 +9660,7 @@
     ]
   },
   {
-    "id": 114,
+    "id": 113,
     "name": "精密换位",
     "difficulty": 3,
     "minimum": 23,
@@ -9848,7 +9747,7 @@
     ]
   },
   {
-    "id": 115,
+    "id": 114,
     "name": "城市脉络",
     "difficulty": 3,
     "minimum": 23,
@@ -9942,7 +9841,7 @@
     ]
   },
   {
-    "id": 116,
+    "id": 115,
     "name": "连环破局",
     "difficulty": 3,
     "minimum": 23,
@@ -10029,7 +9928,7 @@
     ]
   },
   {
-    "id": 117,
+    "id": 116,
     "name": "出库远征",
     "difficulty": 3,
     "minimum": 23,
@@ -10112,6 +10011,107 @@
       2,
       4,
       0,
+      1
+    ]
+  },
+  {
+    "id": 117,
+    "name": "出库大师",
+    "difficulty": 3,
+    "minimum": 25,
+    "cars": [
+      {
+        "id": "X",
+        "axis": "x",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "K",
+        "axis": "z",
+        "lane": 4,
+        "size": 3
+      },
+      {
+        "id": "D",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "J",
+        "axis": "z",
+        "lane": 0,
+        "size": 2
+      },
+      {
+        "id": "F",
+        "axis": "x",
+        "lane": 5,
+        "size": 2
+      },
+      {
+        "id": "B",
+        "axis": "x",
+        "lane": 3,
+        "size": 2
+      },
+      {
+        "id": "L",
+        "axis": "z",
+        "lane": 5,
+        "size": 3
+      },
+      {
+        "id": "I",
+        "axis": "x",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "M",
+        "axis": "x",
+        "lane": 0,
+        "size": 3
+      },
+      {
+        "id": "A",
+        "axis": "z",
+        "lane": 1,
+        "size": 2
+      },
+      {
+        "id": "C",
+        "axis": "z",
+        "lane": 2,
+        "size": 2
+      },
+      {
+        "id": "G",
+        "axis": "x",
+        "lane": 4,
+        "size": 2
+      },
+      {
+        "id": "E",
+        "axis": "z",
+        "lane": 3,
+        "size": 2
+      }
+    ],
+    "positions": [
+      0,
+      0,
+      2,
+      3,
+      4,
+      3,
+      2,
+      1,
+      1,
+      4,
+      2,
+      2,
       1
     ]
   },

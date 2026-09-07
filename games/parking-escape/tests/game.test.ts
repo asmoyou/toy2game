@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createHash } from 'node:crypto';
-import { createGame, LEVELS } from '../src/game';
+import { createGame, initialState, LEVELS } from '../src/game';
 import { bounds, EXIT, GARAGE, legalMove, movesFrom, nextPositions, starsFor, validLayout } from '../src/rules';
 import { solve } from '../src/solver';
 import { parseSave } from '../src/storage';
@@ -21,23 +20,16 @@ describe('verified parking challenges', () => {
     }
   });
 
-  it('preserves every released level so saved paths and best scores still refer to the same puzzles', () => {
-    // Fingerprint of the original 24 published records, including IDs, names, geometry and minima.
-    expect(createHash('sha256').update(JSON.stringify(LEVELS.slice(0, 24))).digest('hex')).toBe('ce67df18e81b124c649753070edccf44b96878f0c6a8068856ef9506e4152826');
-  });
-
-  it('offers thirty levels per difficulty and a progressively harder expansion', () => {
+  it('numbers each difficulty in a continuous thirty-level range with increasing minimum moves', () => {
     for (const [difficulty, min, max] of [[0, 4, 6], [1, 7, 10], [2, 11, 16], [3, 17, Infinity]]) {
       const group = LEVELS.filter(level => level.difficulty === difficulty);
       expect(group).toHaveLength(30);
       expect(group.every(level => level.minimum >= min && level.minimum <= max)).toBe(true);
-      const added = group.filter(level => level.id > 24);
-      expect(added).toHaveLength(24);
-      expect(new Set(added.map(level => level.minimum)).size).toBeGreaterThanOrEqual(3);
+      expect(group.map(level => level.id)).toEqual(Array.from({ length: 30 }, (_, i) => difficulty * 30 + i + 1));
+      expect(new Set(group.map(level => level.minimum)).size).toBeGreaterThanOrEqual(3);
     }
-    const minima = LEVELS.slice(24).map(level => level.minimum);
+    const minima = LEVELS.map(level => level.minimum);
     expect(minima).toEqual([...minima].sort((a, b) => a - b));
-    expect(LEVELS.at(-1)!.minimum).toBeGreaterThan(LEVELS[23].minimum);
   });
 
   for (const level of LEVELS) it(`level ${level.id} reaches the exit in exactly its advertised ${level.minimum} moves`, () => {
@@ -90,7 +82,7 @@ describe('legal moves and single-player engine', () => {
     expect(client.getState()!.G.future).toEqual([]);
   });
 
-  it.each([1, 25, 49, 73, 120])('level %i finishes only after the police car has completely left and refuses later actions', id => {
+  it.each([1, 31, 61, 91, 120])('level %i finishes only after the police car has completely left and refuses later actions', id => {
     const level = LEVELS[id - 1];
     const solution = solve(level.cars, level.positions);
     if (solution.status !== 'solved') throw new Error('Missing solution');
@@ -110,23 +102,30 @@ describe('legal moves and single-player engine', () => {
 });
 
 describe('validated progress persistence', () => {
-  it.each([5, 24, 25, 48, 49, 72, 73, 96, 97, 120])('restores level %i with its redo chain and best scores across both packs', id => {
+  it.each([1, 30, 31, 60, 61, 90, 91, 120])('restores level %i with its redo chain and best scores across difficulty boundaries', id => {
     const level = LEVELS[id - 1], client = createGame(level), solution = solve(level.cars, level.positions);
     if (solution.status !== 'solved') throw new Error('Missing solution');
     for (const move of solution.moves.slice(0, 3)) client.moves.slide(move);
     client.moves.back();
-    const saved = { version: 1, level: level.id, game: client.getState()!.G, seconds: 37, best: { '1': 4, '24': 25, '120': LEVELS[119].minimum } };
+    const saved = { version: 2, level: level.id, game: client.getState()!.G, seconds: 37, best: { '1': 4, '30': LEVELS[29].minimum, '120': LEVELS[119].minimum } };
     const restored = parseSave(JSON.parse(JSON.stringify(saved)));
     expect(restored).toEqual(saved);
     const next = createGame(level, restored.game); next.moves.forward();
     expect(next.getState()!.G.past).toHaveLength(3);
   });
 
+  it('discards old numbering saves including their scores even when the saved layout is still valid', () => {
+    const level = LEVELS[0], client = createGame(level);
+    client.moves.slide(movesFrom(level.cars, level.positions)[0]);
+    const saved = { version: 1, level: level.id, game: client.getState()!.G, seconds: 37, best: { '1': 4, '24': 25 } };
+    expect(parseSave(saved)).toEqual({ version: 2, level: 1, game: initialState(level), seconds: 0, best: {} });
+  });
+
   it('rejects corrupt, overlapping, unreachable or noncontiguous paths, retaining valid best scores', () => {
     expect(parseSave(null).level).toBe(1);
     expect(parseSave({ version: 99 }).level).toBe(1);
     const level = LEVELS[2];
-    const saved = { version: 1, level: level.id, game: { positions: [...level.positions], past: [], future: [] }, seconds: 20, best: { '1': 4, '2': -1, '3': 0 } };
+    const saved = { version: 2, level: level.id, game: { positions: [...level.positions], past: [], future: [] }, seconds: 20, best: { '1': 4, '2': -1, '3': 0 } };
     saved.game.positions[1] = 8;
     expect(parseSave(saved).level).toBe(1);
     expect(parseSave(saved).best).toEqual({ '1': 4 });

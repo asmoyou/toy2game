@@ -2,8 +2,8 @@ import { writeFile } from 'node:fs/promises';
 import { GARAGE, validLayout, type Level, type Vehicle } from '../src/rules.ts';
 import { solve } from '../src/solver.ts';
 
-const originalNames = ['清晨出发', '街角相逢', '借个车位', '错峰出行', '各退一步', '小小调度', '转角之间', '礼让通行', '迂回有道', '车位交换', '忙里有序', '恰到好处', '环环相扣', '腾挪空间', '进退之间', '穿行街区', '静心调度', '柳暗花明', '拥挤时刻', '城市迷局', '步步为营', '解开连环', '最后一格', '出库大师'];
-const extraNames = [
+const firstBatchNames = ['清晨出发', '街角相逢', '借个车位', '错峰出行', '各退一步', '小小调度', '转角之间', '礼让通行', '迂回有道', '车位交换', '忙里有序', '恰到好处', '环环相扣', '腾挪空间', '进退之间', '穿行街区', '静心调度', '柳暗花明', '拥挤时刻', '城市迷局', '步步为营', '解开连环', '最后一格', '出库大师'];
+const secondBatchNames = [
   '晨光小巷', '早餐街口', '邻里让行', '树荫车位', '午后出游', '周末集市',
   '公园门前', '放学路上', '雨后街道', '晚风归途', '花店转角', '河畔停车',
   '书店相遇', '操场旁边', '面包飘香', '小桥借位', '林间驿站', '海边出发',
@@ -35,7 +35,7 @@ function generatePack(seedValue: number, perDifficulty: number, names: string[],
   const integer = (n: number) => Math.floor(random() * n);
   const groups: Level[][] = [[], [], [], []];
   const layouts = new Set(existing.map(signature));
-  // Spread the expansion across move counts instead of filling a tier with its easiest boards.
+  // Spread the second batch across move counts to include harder boards within each tier.
   const band = (minimum: number) => minimum < 17 ? minimum : minimum < 20 ? 17 : minimum < 23 ? 20 : 23;
   const quotas = [8, 6, 4, 8];
   for (let attempt = 0; groups.some(group => group.length < perDifficulty) && attempt < 150000; attempt++) {
@@ -68,10 +68,12 @@ function generatePack(seedValue: number, perDifficulty: number, names: string[],
     console.log(`Found ${existing.length + groups.flat().length}/${existing.length + names.length}: ${minimum} moves, ${cars.length} cars, attempt ${attempt}`);
   }
   if (groups.some(group => group.length < perDifficulty)) throw new Error('Not enough verified levels');
-  return groups.flatMap(group => group.sort((a, b) => a.minimum - b.minimum)).map((level, i) => ({ ...level, id: existing.length + i + 1, name: names[i] }));
+  return groups.flatMap(group => group.sort((a, b) => a.minimum - b.minimum)).map((level, i) => ({ ...level, name: names[i] }));
 }
 
-// Keep the released seed and ordering separate so regeneration preserves existing saves.
-const original = generatePack(20260907, 6, originalNames);
-const levels = [...original, ...generatePack(20260908, 24, extraNames, original)];
+// Number the complete collection after sorting, so every difficulty has a continuous range.
+const firstBatch = generatePack(20260907, 6, firstBatchNames);
+const levels = [...firstBatch, ...generatePack(20260908, 24, secondBatchNames, firstBatch)]
+  .sort((a, b) => a.difficulty - b.difficulty || a.minimum - b.minimum)
+  .map((level, i) => ({ ...level, id: i + 1 }));
 await writeFile(new URL('../src/levels.json', import.meta.url), `${JSON.stringify(levels, null, 2)}\n`);

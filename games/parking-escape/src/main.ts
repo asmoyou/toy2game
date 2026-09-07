@@ -69,7 +69,7 @@ $('#app').innerHTML = `
 const won = () => game.positions[0] === EXIT;
 const paused = () => userPaused || !!activeDialog || document.hidden;
 const locked = () => paused() || !!scene?.animating || destroyed;
-const save = () => persist({ version: 1, level: level.id, game, seconds, best });
+const save = () => persist({ version: 2, level: level.id, game, seconds, best });
 const timeLabel = () => `${number(Math.floor(seconds / 60))}:${number(Math.floor(seconds) % 60)}`;
 
 function cancelHint() {

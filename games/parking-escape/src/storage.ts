@@ -1,9 +1,9 @@
 import { LEVELS, initialState, type ParkingState } from './game';
 import { legalMove, validLayout, type Level } from './rules';
 
-export const SAVE_KEY = 'parking-escape-save-v1';
+export const SAVE_KEY = 'parking-escape-save-v2';
 export const PREFERENCES_KEY = 'parking-escape-preferences-v1';
-export type Saved = { version: 1; level: number; game: ParkingState; seconds: number; best: Record<string, number> };
+export type Saved = { version: 2; level: number; game: ParkingState; seconds: number; best: Record<string, number> };
 
 function transition(level: Level, before: number[], after: number[]) {
   const changes = after.flatMap((to, car) => to !== before[car] ? [{ car, to }] : []);
@@ -11,10 +11,10 @@ function transition(level: Level, before: number[], after: number[]) {
 }
 
 export function parseSave(value: unknown): Saved {
-  const fallback: Saved = { version: 1, level: 1, game: initialState(LEVELS[0]), seconds: 0, best: {} };
+  const fallback: Saved = { version: 2, level: 1, game: initialState(LEVELS[0]), seconds: 0, best: {} };
   if (!value || typeof value !== 'object') return fallback;
   const saved = value as Partial<Saved>;
-  if (saved.version !== 1) return fallback;
+  if (saved.version !== 2) return fallback;
   if (saved.best && typeof saved.best === 'object') {
     for (const level of LEVELS) {
       const best = saved.best[level.id];
@@ -28,7 +28,7 @@ export function parseSave(value: unknown): Saved {
   const path = [...G.past, G.positions, ...[...G.future].reverse()];
   if (path[0].some((position, i) => position !== level.positions[i])) return fallback;
   for (let i = 1; i < path.length; i++) if (!transition(level, path[i - 1], path[i])) return fallback;
-  return { version: 1, level: level.id, game: structuredClone(G), seconds: Number.isFinite(saved.seconds) && saved.seconds! >= 0 ? Math.min(saved.seconds!, 864000) : 0, best: fallback.best };
+  return { version: 2, level: level.id, game: structuredClone(G), seconds: Number.isFinite(saved.seconds) && saved.seconds! >= 0 ? Math.min(saved.seconds!, 864000) : 0, best: fallback.best };
 }
 
 export function loadSave(): Saved {

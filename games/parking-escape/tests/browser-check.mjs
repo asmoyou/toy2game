@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium, webkit, expect } from '@playwright/test';
 import { PNG } from 'pngjs';
-import { movesFrom } from '../src/rules.ts';
+import { DIFFICULTIES, movesFrom } from '../src/rules.ts';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const levels = JSON.parse(await readFile(new URL('../src/levels.json', import.meta.url), 'utf8'));
@@ -139,7 +139,8 @@ for (const engine of process.env.CHECK_WEBKIT ? ['chrome', 'webkit'] : ['chrome'
         await expect(settings.locator('[data-draft]')).toHaveCount(30);
         await settings.getByRole('button', { name: '渐入佳境', exact: true }).click();
         await expect(settings.locator('#draft-summary')).toContainText('第 01 关');
-        await page.getByRole('button', { name: '第 8 关 礼让通行' }).click();
+        const secondDifficulty = levels[30];
+        await page.getByRole('button', { name: `第 ${secondDifficulty.id} 关 ${secondDifficulty.name}`, exact: true }).click();
         await page.screenshot({ path: path.join(root, `artifacts/parking-escape/${engine}-${name}-settings.png`), fullPage: true });
         await page.getByRole('button', { name: '关闭设置' }).click();
         await expect(page.locator('#level-number')).toHaveText('第 01 关');
@@ -170,10 +171,12 @@ for (const engine of process.env.CHECK_WEBKIT ? ['chrome', 'webkit'] : ['chrome'
         await page.getByRole('button', { name: '游戏设置' }).click();
         await expect(settings.getByRole('button', { name: '初来乍到', exact: true }).locator('small')).toHaveText('1 / 30');
         const available = new Set();
-        for (const difficulty of ['初来乍到', '渐入佳境', '环环相扣', '出库高手']) {
+        for (const [index, difficulty] of DIFFICULTIES.entries()) {
           await settings.getByRole('button', { name: difficulty, exact: true }).click();
           await expect(settings.locator('[data-draft]')).toHaveCount(30);
-          for (const id of await settings.locator('[data-draft]').evaluateAll(buttons => buttons.map(button => Number(button.dataset.draft)))) available.add(id);
+          const ids = await settings.locator('[data-draft]').evaluateAll(buttons => buttons.map(button => Number(button.dataset.draft)));
+          assert.deepEqual(ids, Array.from({ length: 30 }, (_, i) => index * 30 + i + 1), 'Difficulty levels must be numbered consecutively');
+          for (const id of ids) available.add(id);
         }
         assert.equal(available.size, 120, 'Every level must be reachable through the difficulty selector');
         await settings.getByRole('button', { name: `第 ${finalLevel.id} 关 ${finalLevel.name}`, exact: true }).click();
@@ -189,7 +192,7 @@ for (const engine of process.env.CHECK_WEBKIT ? ['chrome', 'webkit'] : ['chrome'
           return rect.width < 43.5 || rect.height < 43.5;
         }).map(button => button.getAttribute('aria-label')));
         assert.deepEqual(smallOptions, [], 'Level selection needs 44px touch targets');
-        await page.screenshot({ path: path.join(root, `artifacts/parking-escape/${engine}-${name}-expansion-settings.png`), fullPage: true });
+        await page.screenshot({ path: path.join(root, `artifacts/parking-escape/${engine}-${name}-final-settings.png`), fullPage: true });
         await page.getByRole('button', { name: '关闭设置' }).click();
         await expect(page.locator('#level-number')).toHaveText('第 02 关');
         await page.getByRole('button', { name: '游戏设置' }).click();
@@ -201,12 +204,12 @@ for (const engine of process.env.CHECK_WEBKIT ? ['chrome', 'webkit'] : ['chrome'
         await expect(page.locator('#move-count')).toHaveText('00');
         await expect(page.locator('#chapter-levels button')).toHaveCount(6);
         await expect(page.locator('#chapter-levels [aria-current="step"]')).toHaveAttribute('data-level', String(finalLevel.id));
-        const expandedBefore = await canvas.screenshot();
-        assert.ok(pixelColors(expandedBefore) > 120);
+        const finalBefore = await canvas.screenshot();
+        assert.ok(pixelColors(finalBefore) > 120);
         await hintMove(page);
         await expect(page.locator('#move-count')).toHaveText('01');
         await expect(page.locator('#undo')).toBeEnabled();
-        assert.notEqual(Buffer.compare(expandedBefore, await canvas.screenshot()), 0);
+        assert.notEqual(Buffer.compare(finalBefore, await canvas.screenshot()), 0);
         await page.reload();
         await expect(page.locator('#level-number')).toHaveText(`第 ${finalLevel.id} 关`);
         await expect(page.locator('#move-count')).toHaveText('01');
@@ -214,7 +217,7 @@ for (const engine of process.env.CHECK_WEBKIT ? ['chrome', 'webkit'] : ['chrome'
         await expect(settings.locator(`[data-draft="${finalLevel.id}"]`)).toHaveAttribute('aria-pressed', 'true');
         await expect(settings.locator(`[data-draft="${finalLevel.id}"]`)).toBeInViewport();
         await page.getByRole('button', { name: '关闭设置' }).click();
-        await page.screenshot({ path: path.join(root, `artifacts/parking-escape/${engine}-${name}-expansion.png`), fullPage: true });
+        await page.screenshot({ path: path.join(root, `artifacts/parking-escape/${engine}-${name}-final.png`), fullPage: true });
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'No horizontal overflow');
         const undersized = await page.locator('.header button, .puzzle-tools button, .direction-controls button, .garage-car, .chapter-levels button').evaluateAll(buttons => buttons.filter(button => {
           const rect = button.getBoundingClientRect();
@@ -222,7 +225,7 @@ for (const engine of process.env.CHECK_WEBKIT ? ['chrome', 'webkit'] : ['chrome'
         }).map(button => ({ name: button.getAttribute('aria-label') ?? button.textContent, width: button.getBoundingClientRect().width, height: button.getBoundingClientRect().height })));
         assert.deepEqual(undersized, [], 'Touch controls must remain at least 44 CSS pixels');
         assert.deepEqual(errors, []); assert.deepEqual(failures, []);
-        console.log(`PASS ${engine} ${name}: scene pixels, movement, hints, undo/redo, pause, settings, restart, completion, expansion selection and persistence`);
+        console.log(`PASS ${engine} ${name}: scene pixels, movement, hints, undo/redo, pause, settings, restart, completion, sequential level selection and persistence`);
       } finally { await context.close(); }
     }
   } finally { await browser.close(); }
