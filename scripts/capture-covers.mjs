@@ -4,7 +4,7 @@ import { PNG } from 'pngjs';
 import { registry, root } from './catalog.mjs';
 
 const url = process.env.SITE_URL ?? 'http://localhost:5173/';
-const sceneHosts = { 'penguin-ice': '#scene', 'rabbit-trap': '.scene-host', 'balance-astronaut': '#space-scene', 'parking-escape': '#parking-scene' };
+const sceneHosts = { 'penguin-ice': '#scene', 'rabbit-trap': '.scene-host', 'balance-astronaut': '#space-scene', 'parking-escape': '#parking-scene', 'frog-feast': '#frog-scene' };
 const games = process.env.GAME_ID ? registry.filter(game => game.id === process.env.GAME_ID) : registry;
 if (!games.length) throw new Error(`Unknown game: ${process.env.GAME_ID}`);
 const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL ?? 'chrome' });

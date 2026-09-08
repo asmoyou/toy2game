@@ -3,6 +3,7 @@ import { PNG } from 'pngjs';
 import parkingLevels from '../../games/parking-escape/src/levels.json' with { type: 'json' };
 
 for (const game of [
+  { id: 'frog-feast', title: '青蛙吃豆豆', canvas: '#frog-scene canvas', control: '游戏规则', action: '向右旋转视角', close: '关闭规则', debug: '__frog' },
   { id: 'penguin-ice', title: '企鹅敲敲敲', canvas: '#scene canvas', control: '游戏设置', action: '向右旋转视角', close: '关闭设置', debug: '__iceGame' },
   { id: 'rabbit-trap', title: '小兔闯关', canvas: '.scene-host canvas', control: '游戏规则', action: '抽一张卡牌', close: '关闭', debug: '__rabbit' },
   { id: 'balance-astronaut', title: '平衡太空人', canvas: '#space-scene canvas', control: '游戏规则', action: '向右旋转视角', close: '关闭规则', debug: '__balance' },
@@ -34,6 +35,23 @@ for (const game of [
     await page.getByRole('button', { name: game.control, exact: true }).click();
     await expect(page.locator('dialog[open]')).toBeVisible();
     await page.locator('dialog[open]').getByRole('button', { name: game.close, exact: true }).click();
+    if (game.id === 'frog-feast') {
+      await expect(page.locator('#remaining-count')).toHaveText('60');
+      await page.getByRole('button', { name: '开始抢豆', exact: true }).click();
+      await expect(page.locator('#countdown-state')).toBeHidden();
+      await page.keyboard.down('a');
+      await expect(page.locator('#score-0')).not.toHaveText('0');
+      await page.keyboard.up('a');
+      await page.getByRole('button', { name: '新的一局', exact: true }).click();
+      await expect(page.getByRole('dialog', { name: '重新开始这一局？' })).toBeVisible();
+      const score = await page.locator('#score-0').textContent();
+      await page.getByRole('button', { name: '继续这局', exact: true }).click();
+      await expect(page.locator('#score-0')).toHaveText(score!);
+      await page.getByRole('button', { name: '新的一局', exact: true }).click();
+      await page.getByRole('button', { name: '重新开局', exact: true }).click();
+      await expect(page.locator('#remaining-count')).toHaveText('60');
+      await expect(page.getByRole('button', { name: '开始抢豆', exact: true })).toBeEnabled();
+    }
     if (game.id === 'rabbit-trap') {
       const card = page.locator('.playing-card');
       const cardLabel = await card.getAttribute('aria-label');
