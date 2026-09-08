@@ -4,7 +4,7 @@
 
 把平板放到桌子中间，一起抢豆，轮流敲冰、翻牌、挑战平衡；一个人也能解一道移车谜题。
 
-目前已有 **5 款可以实际游玩的 3D 网页游戏**，支持同屏游玩与电脑对手，适配手机、平板和电脑。免下载，免注册。
+目前已有 **6 款可以实际游玩的 3D 网页游戏**，支持同屏游玩与电脑对手，适配手机、平板和电脑。免下载，免注册。
 
 **[源码开放 · 非商业使用免费 · 商业使用须经作者事先书面授权](LICENSE)**
 
@@ -30,7 +30,7 @@ A browser-based toy box: playful 3D games for solo puzzles and local multiplayer
 | --- | --- |
 | ![企鹅敲敲敲实际对局：敲冰后冰面失去支撑，企鹅落水](docs/images/penguin-ice-gameplay.gif) | ![移车出库实际对局：移动阻挡车辆，警车在四步内驶出停车场](docs/images/parking-escape-gameplay.gif) |
 
-- **和家人朋友一起玩**：企鹅、小兔和太空人支持 2 至 4 个同屏席位，轮到谁就由谁操作，也可以加入电脑对手。青蛙吃豆豆则能同时按压抢豆。
+- **和家人朋友一起玩**：企鹅、小兔、太空人和翻棋支持 2 至 4 个同屏席位，轮到谁就由谁操作，也可以加入电脑对手。青蛙吃豆豆则能同时按压抢豆。
 - **一个人休息一会儿**：选择电脑对手，或在移车出库的 120 个关卡里挑战更少步数。
 - **把玩具拿近一点看**：3D 场景可以旋转、缩放和复位，支持触控与鼠标；浏览器允许时可以进入全屏。
 
@@ -45,10 +45,11 @@ A browser-based toy box: playful 3D games for solo puzzles and local multiplayer
 | [平衡太空人](https://games.asmo.top/games/balance-astronaut/) | 把队员逐一放上平台，守住重心与平衡 | 2–4 个席位，约 3–8 分钟 | 48 个停靠位、轮流放置、骰子挑战、电脑对手 |
 | [益智移车出库](https://games.asmo.top/games/parking-escape/) | 沿车身方向挪车，让警车从出口驶出 | 单人，约 2–10 分钟 | 120 个独立关卡、撤销 / 重做、下一步提示、进度存档 |
 | [青蛙吃豆豆](https://games.asmo.top/games/frog-feast/) | 按住青蛙同时抢豆，比比谁吃得多 | 2–4 个席位，约 15–60 秒 | 60 颗彩豆、连续吃豆、多点触控、电脑对手 |
+| [翻棋对对碰](https://games.asmo.top/games/flip-match/) | 翻两枚，记位置，找到相同的动物与水果 | 2–4 个席位，约 3–10 分钟 | 12 / 24 对棋子、四档机器人难度、全电脑对战、刷新续玩 |
 
-点击游戏名直接试玩。多人游戏中的席位可以包含电脑；时长为参考值。具体规则、数字版改编与参考来源：[企鹅](games/penguin-ice/README.md)、[小兔](games/rabbit-trap/README.md)、[太空人](games/balance-astronaut/README.md)、[移车](games/parking-escape/README.md)、[青蛙](games/frog-feast/README.md)。
+点击游戏名直接试玩。多人游戏中的席位可以包含电脑；时长为参考值。具体规则、数字版改编与参考来源：[企鹅](games/penguin-ice/README.md)、[小兔](games/rabbit-trap/README.md)、[太空人](games/balance-astronaut/README.md)、[移车](games/parking-escape/README.md)、[青蛙](games/frog-feast/README.md)、[翻棋](games/flip-match/README.md)。
 
-青蛙吃豆豆支持**本地同屏同时操作**，其他多人游戏为轮流操作，暂不支持异地联机。小兔闯关和移车出库支持刷新续玩；企鹅、太空人与青蛙保存设置，刷新后重新开局。收藏、设置和存档都保存在当前浏览器。
+青蛙吃豆豆支持**本地同屏同时操作**，其他多人游戏为轮流操作，暂不支持异地联机。小兔闯关、移车出库和翻棋对对碰支持刷新续玩；企鹅、太空人与青蛙保存设置，刷新后重新开局。收藏、设置和存档都保存在当前浏览器。
 
 ## 在不同屏幕上玩
 
@@ -71,7 +72,7 @@ npm run dev
 
 手机或平板与电脑连接同一 Wi-Fi 后，可以访问终端打印的 **Network** 地址；电脑需要保持服务运行。使用 `Ctrl+C` 停止服务。
 
-开发服务将大厅、五款游戏和热更新统一到 **5173** 端口。重复启动会复用同仓库实例；端口被其他项目占用时会提示并退出。
+开发服务将大厅、六款游戏和热更新统一到 **5173** 端口。重复启动会复用同仓库实例；端口被其他项目占用时会提示并退出。
 
 ## 技术与目录
 
@@ -85,6 +86,7 @@ games/
   balance-astronaut/       平衡太空人
   parking-escape/          益智移车出库
   frog-feast/              青蛙吃豆豆
+  flip-match/              翻棋对对碰
 packages/catalog/         游戏登记、站点文案、收藏与最近游玩
 scripts/                  统一开发、构建、预渲染、测试与截图
 tests/                    登记契约与站点浏览器测试
@@ -102,7 +104,7 @@ npm run build
 npm run preview
 ```
 
-完整站点输出到根目录 **`dist/`**，包含大厅、五款游戏及其资源、文字版介绍和 404 页面。开发与生产预览均使用 5173；切换前用 `Ctrl+C` 停止当前服务，预览结束后同样关闭服务。
+完整站点输出到根目录 **`dist/`**，包含大厅、六款游戏及其资源、文字版介绍和 404 页面。开发与生产预览均使用 5173；切换前用 `Ctrl+C` 停止当前服务，预览结束后同样关闭服务。
 
 可部署到支持目录索引与真实 HTTP 404 的静态托管服务。仓库已提供 **Cloudflare Workers Static Assets** 配置，见 [Cloudflare 部署指南](docs/cloudflare.md)。
 

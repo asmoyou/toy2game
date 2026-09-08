@@ -4,7 +4,7 @@ import { PNG } from 'pngjs';
 import { registry, root } from './catalog.mjs';
 
 const url = process.env.SITE_URL ?? 'http://localhost:5173/';
-const sceneHosts = { 'penguin-ice': '#scene', 'rabbit-trap': '.scene-host', 'balance-astronaut': '#space-scene', 'parking-escape': '#parking-scene', 'frog-feast': '#frog-scene' };
+const sceneHosts = { 'penguin-ice': '#scene', 'rabbit-trap': '.scene-host', 'balance-astronaut': '#space-scene', 'parking-escape': '#parking-scene', 'frog-feast': '#frog-scene', 'flip-match': '#match-scene' };
 const games = process.env.GAME_ID ? registry.filter(game => game.id === process.env.GAME_ID) : registry;
 if (!games.length) throw new Error(`Unknown game: ${process.env.GAME_ID}`);
 const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL ?? 'chrome' });
@@ -29,6 +29,19 @@ try {
         }
         game.paused = true;
       });
+    }
+    if (game.id === 'flip-match') {
+      // Show an actual pair being compared; both flips use the normal move entry point.
+      await page.evaluate(() => {
+        const game = window.__flip?.game;
+        if (!game) return;
+        const a = 17, b = game.state.deck.findIndex((face, id) => id > a && face !== game.state.deck[a]);
+        game.flip(a);
+        for (let step = 0; step < 10; step++) game.update(0.05);
+        game.flip(b);
+      });
+      await page.waitForTimeout(500);
+      await page.evaluate(() => { if (window.__flip) window.__flip.game.paused = true; });
     }
     // Resize the existing game scene for a cover; no separate illustration or scene implementation.
     await page.addStyleTag({ content: `${host} { position: fixed !important; inset: 0 !important; width: 1200px !important; height: 800px !important; z-index: 9999 !important; } body * { visibility: hidden !important; } ${selector} { visibility: visible !important; }` });

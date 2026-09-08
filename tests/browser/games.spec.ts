@@ -3,6 +3,7 @@ import { PNG } from 'pngjs';
 import parkingLevels from '../../games/parking-escape/src/levels.json' with { type: 'json' };
 
 for (const game of [
+  { id: 'flip-match', title: '翻棋对对碰', canvas: '#match-scene canvas', control: '游戏规则', action: '向右旋转视角', close: '关闭规则', debug: '__flip' },
   { id: 'frog-feast', title: '青蛙吃豆豆', canvas: '#frog-scene canvas', control: '游戏规则', action: '向右旋转视角', close: '关闭规则', debug: '__frog' },
   { id: 'penguin-ice', title: '企鹅敲敲敲', canvas: '#scene canvas', control: '游戏设置', action: '向右旋转视角', close: '关闭设置', debug: '__iceGame' },
   { id: 'rabbit-trap', title: '小兔闯关', canvas: '.scene-host canvas', control: '游戏规则', action: '抽一张卡牌', close: '关闭', debug: '__rabbit' },
@@ -35,6 +36,37 @@ for (const game of [
     await page.getByRole('button', { name: game.control, exact: true }).click();
     await expect(page.locator('dialog[open]')).toBeVisible();
     await page.locator('dialog[open]').getByRole('button', { name: game.close, exact: true }).click();
+    if (game.id === 'flip-match') {
+      await expect(page.locator('[data-player="1"]')).toContainText('普通机器人');
+      await page.getByRole('button', { name: '游戏设置', exact: true }).click();
+      const difficulty = page.getByRole('combobox', { name: '机器人难度' });
+      await expect(difficulty).toHaveValue('normal');
+      await difficulty.selectOption('perfect');
+      await page.getByRole('button', { name: '关闭设置', exact: true }).click();
+      await expect(page.locator('[data-player="1"]')).toContainText('普通机器人');
+      await page.getByRole('button', { name: '游戏设置', exact: true }).click();
+      await difficulty.selectOption('hard');
+      await page.getByRole('button', { name: '按此设置开始新局', exact: true }).click();
+      await expect(page.locator('[data-player="1"]')).toContainText('困难机器人');
+      await page.getByRole('button', { name: '棋子列表', exact: true }).click();
+      await page.getByRole('button', { name: '第 1 枚，背面', exact: true }).click();
+      await expect(page.locator('#reveal-0 img')).toBeVisible();
+      const first = await page.locator('#reveal-0 img').getAttribute('alt');
+      await page.getByRole('button', { name: '新的一局', exact: true }).click();
+      await page.getByRole('button', { name: '继续这局', exact: true }).click();
+      await expect(page.locator('#reveal-0 img')).toHaveAttribute('alt', first!);
+      await page.reload();
+      await expect(page.locator('#reveal-0 img')).toHaveAttribute('alt', first!);
+      await page.getByRole('button', { name: '棋子列表', exact: true }).click();
+      await page.getByRole('button', { name: '第 2 枚，背面', exact: true }).click();
+      await expect(page.locator('#attempt-count')).toHaveText('01');
+      await page.getByRole('button', { name: '新的一局', exact: true }).click();
+      await page.getByRole('button', { name: '重新开局', exact: true }).click();
+      await expect(page.locator('#attempt-count')).toHaveText('00');
+      await expect(page.locator('#matched-count')).toHaveText('00');
+      await page.reload();
+      await expect(page.locator('[data-player="1"]')).toContainText('困难机器人');
+    }
     if (game.id === 'frog-feast') {
       await expect(page.locator('#remaining-count')).toHaveText('60');
       await page.getByRole('button', { name: '开始抢豆', exact: true }).click();
