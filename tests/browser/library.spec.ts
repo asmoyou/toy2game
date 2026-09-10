@@ -9,9 +9,11 @@ test('library renders real covers, searches, filters, sorts and handles no resul
   await page.goto('./');
   await expect(page.locator('.game-card')).toHaveCount(games.length);
   for (const image of await page.locator('.game-image img').all()) {
+    await image.scrollIntoViewIfNeeded();
     await expect(image).toBeVisible();
-    expect(await image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 500)).toBe(true);
+    await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 500)).toBe(true);
   }
+  await page.evaluate(() => window.scrollTo(0, 0));
   expect(requests.filter(url => /\/games\/.*\.(js|ts|tsx)/.test(url))).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: `artifacts/library-${info.project.name}.png`, fullPage: true });

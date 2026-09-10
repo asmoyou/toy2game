@@ -14,7 +14,12 @@ for (const game of [
     const errors: string[] = [];
     const failed: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
-    page.on('response', response => { if (response.status() >= 400 && response.url().startsWith(new URL(info.project.use.baseURL!).origin)) failed.push(response.url()); });
+    page.on('response', response => {
+      // Cloudflare Speed Brain returns 503 for an unavailable speculative prefetch.
+      // Actual navigation and resource failures must still fail the test.
+      if (response.status() === 503 && response.request().headers()['sec-purpose']?.includes('prefetch')) return;
+      if (response.status() >= 400 && new URL(response.url()).origin === new URL(info.project.use.baseURL!).origin) failed.push(response.url());
+    });
     await page.goto('./');
     await page.getByRole('link', { name: `开始玩${game.title}` }).click();
     await expect(page).toHaveURL(new RegExp(`/games/${game.id}/$`));

@@ -8,7 +8,7 @@
     "tags": ["物理模拟", "同屏对战", "电脑对手"],
     "players": "2–4 人",
     "duration": "3–10 分钟",
-    "cover": "images/penguin-ice.png",
+    "cover": "images/penguin-ice.webp",
     "color": "ice",
     "addedAt": "2026-09-05",
     "seo": {
@@ -28,7 +28,7 @@
     "tags": ["棋盘冒险", "同屏对战", "电脑对手"],
     "players": "2–4 人",
     "duration": "10–20 分钟",
-    "cover": "images/rabbit-trap.png",
+    "cover": "images/rabbit-trap.webp",
     "color": "garden",
     "addedAt": "2026-09-05",
     "seo": {
@@ -48,7 +48,7 @@
     "tags": ["物理平衡", "同屏对战", "电脑对手"],
     "players": "2–4 人",
     "duration": "3–8 分钟",
-    "cover": "images/balance-astronaut.png",
+    "cover": "images/balance-astronaut.webp",
     "color": "ice",
     "addedAt": "2026-09-06",
     "seo": {
@@ -68,7 +68,7 @@
     "tags": ["移车解谜", "单人闯关", "逻辑思考"],
     "players": "1 人",
     "duration": "2–10 分钟",
-    "cover": "images/parking-escape.png",
+    "cover": "images/parking-escape.webp",
     "color": "garden",
     "addedAt": "2026-09-07",
     "seo": {
@@ -88,7 +88,7 @@
     "tags": ["同时抢豆", "同屏对战", "电脑对手"],
     "players": "2–4 人",
     "duration": "15–60 秒",
-    "cover": "images/frog-feast.png",
+    "cover": "images/frog-feast.webp",
     "color": "garden",
     "addedAt": "2026-09-08",
     "seo": {
@@ -108,7 +108,7 @@
     "tags": ["记忆配对", "同屏对战", "电脑对手"],
     "players": "2–4 人",
     "duration": "3–10 分钟",
-    "cover": "images/flip-match.png",
+    "cover": "images/flip-match.webp",
     "color": "garden",
     "addedAt": "2026-09-08",
     "seo": {

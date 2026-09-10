@@ -46,7 +46,22 @@ try {
     // Resize the existing game scene for a cover; no separate illustration or scene implementation.
     await page.addStyleTag({ content: `${host} { position: fixed !important; inset: 0 !important; width: 1200px !important; height: 800px !important; z-index: 9999 !important; } body * { visibility: hidden !important; } ${selector} { visibility: visible !important; }` });
     await page.waitForTimeout(2000);
-    await page.locator(selector).screenshot({ path: `${root}apps/web/public/${game.cover}` });
+    const destination = `${root}apps/web/public/${game.cover}`;
+    if (game.cover.endsWith('.webp')) {
+      const png = await page.locator(selector).screenshot({ type: 'png' });
+      const encoded = await page.evaluate(async source => {
+        const image = new Image();
+        image.src = `data:image/png;base64,${source}`;
+        await image.decode();
+        const canvas = document.createElement('canvas');
+        canvas.width = image.naturalWidth; canvas.height = image.naturalHeight;
+        canvas.getContext('2d').drawImage(image, 0, 0);
+        return canvas.toDataURL('image/webp', 0.82).split(',')[1];
+      }, png.toString('base64'));
+      await writeFile(destination, Buffer.from(encoded, 'base64'));
+    } else {
+      await page.locator(selector).screenshot({ path: destination });
+    }
     await page.close();
     console.log(`Captured ${game.cover}`);
   }

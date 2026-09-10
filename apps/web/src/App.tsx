@@ -11,12 +11,12 @@ const base = import.meta.env.BASE_URL;
 const viewNames = { all: '游戏大厅', recent: '最近玩过', favorites: '我的收藏' };
 const viewIcons = { all: Grid2X2, recent: History, favorites: Heart };
 
-function GameCard({ game, favorite, onFavorite }: { game: GameDefinition; favorite: boolean; onFavorite: () => void }) {
+function GameCard({ game, index, favorite, onFavorite }: { game: GameDefinition; index: number; favorite: boolean; onFavorite: () => void }) {
   return (
     <article className={`game-card ${game.color}`} data-game={game.id}>
       <a className="game-link" href={gameUrl(game.id, base)} aria-label={`开始玩${game.title}`}>
         <div className="game-image">
-          <img src={`${base}${game.cover}`} alt={`${game.title}实际 3D 游戏画面`} width="1200" height="800" />
+          <img src={`${base}${game.cover}`} alt={`${game.title}实际 3D 游戏画面`} width="1200" height="800" loading={index < 3 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'auto'} decoding="async" />
           <span className="game-badge"><span />{categories.find(category => category.id === game.category)?.label}</span>
           <span className="image-caption">{game.englishTitle}</span>
         </div>
@@ -152,7 +152,7 @@ export default function App() {
             <div className="search-field"><Search size={18} /><input type="search" aria-label="搜索游戏" placeholder="找个游戏玩…" value={query} onChange={event => setQuery(event.target.value)} />{query && <button onClick={() => setQuery('')} aria-label="清空搜索" title="清空搜索"><X size={16} /></button>}</div>
           </div>
           <div className="results-toolbar"><span aria-live="polite">{filtered ? '找到' : view === 'all' ? '全部' : view === 'recent' ? '最近玩过' : '已收藏'} <strong>{visibleGames.length}</strong> 款游戏</span><label className="sort-control"><ArrowDownUp size={14} /><select aria-label="游戏排序" value={sort} onChange={event => setSort(event.target.value as Sort)}><option value="recommended">{view === 'recent' ? '最近游玩' : '默认排序'}</option><option value="newest">最新上架</option><option value="title">名称排序</option></select></label></div>
-          {visibleGames.length ? <div className="game-grid">{visibleGames.map(game => <GameCard key={game.id} game={game} favorite={library.favorites.includes(game.id)} onFavorite={() => toggleFavorite(game)} />)}</div> : <div className="empty-state"><span className="empty-icon">{filtered ? <Search size={30} /> : view === 'favorites' ? <Heart size={30} /> : <Gamepad2 size={30} />}</span><h2>{filtered ? '没有找到这个游戏' : view === 'favorites' ? '还没有收藏的游戏' : '第一局，从这里开始'}</h2><button className="empty-action" onClick={() => { if (filtered) { setCategory('all'); setQuery(''); } else changeView('all'); }}>{filtered ? '清除筛选' : '逛逛游戏大厅'}<ArrowRight size={17} /></button></div>}
+          {visibleGames.length ? <div className="game-grid">{visibleGames.map((game, index) => <GameCard key={game.id} game={game} index={index} favorite={library.favorites.includes(game.id)} onFavorite={() => toggleFavorite(game)} />)}</div> : <div className="empty-state"><span className="empty-icon">{filtered ? <Search size={30} /> : view === 'favorites' ? <Heart size={30} /> : <Gamepad2 size={30} />}</span><h2>{filtered ? '没有找到这个游戏' : view === 'favorites' ? '还没有收藏的游戏' : '第一局，从这里开始'}</h2><button className="empty-action" onClick={() => { if (filtered) { setCategory('all'); setQuery(''); } else changeView('all'); }}>{filtered ? '清除筛选' : '逛逛游戏大厅'}<ArrowRight size={17} /></button></div>}
         </section>
 
         <div className="coming-next"><div className="next-icon"><Sparkles size={22} /></div><div><strong>下一件玩具，正在变成游戏。</strong><span>玩具箱会慢慢装满，好玩的不止这些。</span></div><span className="next-label">TO BE CONTINUED <ArrowRight size={17} /></span></div>

@@ -4,6 +4,8 @@ import site from '../../packages/catalog/site.json' with { type: 'json' };
 
 test('initial HTML contains unique metadata, crawlable game content and discoverable text guides', async ({ page, request }) => {
   const titles = new Set<string>();
+  const origin = process.env.SITE_ORIGIN ?? site.origin;
+  const base = new URL(test.info().project.use.baseURL!).pathname;
   for (const game of [undefined, ...games]) {
     const pathname = game ? `games/${game.id}/` : './';
     const response = await request.get(pathname);
@@ -21,6 +23,7 @@ test('initial HTML contains unique metadata, crawlable game content and discover
         schema: JSON.parse(doc.querySelector('script[type="application/ld+json"]')!.textContent!),
         text: doc.body.textContent,
         links: Array.from(doc.querySelectorAll('a[href]'), link => link.getAttribute('href')),
+        imagePreloads: Array.from(doc.querySelectorAll('link[rel="preload"][as="image"]'), link => link.getAttribute('href')),
       };
     }, html);
     expect(head.titleCount).toBe(1);
@@ -34,6 +37,11 @@ test('initial HTML contains unique metadata, crawlable game content and discover
     expect(guide.status()).toBe(200);
     expect(await guide.text()).toContain(game?.seo.recommendation ?? site.description);
     if (!game) for (const entry of games) expect(head.links.some(link => link?.endsWith(`/games/${entry.id}/`))).toBe(true);
+    if (!game) {
+      expect(head.imagePreloads).toHaveLength(Math.min(3, games.length));
+      expect(head.imagePreloads).toEqual(games.slice(0, 3).map(entry => `${base}${entry.cover}`));
+    }
+    if (origin) expect(head.canonical).toBe(`${new URL(origin).origin}${base}${game ? `games/${game.id}/` : ''}`);
     if (head.canonical) {
       expect(new URL(head.canonical).search).toBe('');
       const sitemap = await request.get('sitemap.xml');
